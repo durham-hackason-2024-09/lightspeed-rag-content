@@ -34,6 +34,9 @@ update-docs: ## Update the plaintext OCP docs in ocp-product-docs-plaintext/
 build-image: ## Build a rag-content container image.
 	podman build -t rag-content .
 
+build-image-aap: ## Build a rag-content container image.
+	podman build -t rag-content -f Containerfile-aap .
+
 help: ## Show this help screen
 	@echo 'Usage: make <OPTIONS> ... <TARGETS>'
 	@echo ''
