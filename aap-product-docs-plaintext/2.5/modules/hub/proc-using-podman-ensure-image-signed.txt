@@ -1,0 +1,8 @@
+# Using podman to ensure an image is signed by a specific signature
+
+1. From the navigation panel, select menu:MenuTopAC[Signature Keys].
+2. Click the btn:[More Actions] icon &#8942; next to the signature that you are using.
+3. Select Download key from the drop-down menu.
+A new window opens.
+4. In the Name field, enter the name of the key.
+5. Click btn:[Save].

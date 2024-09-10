@@ -1,0 +1,11 @@
+# PostgreSQL requirements
+
+Red Hat Ansible Automation Platform uses PostgreSQL 15. PostgreSQL user passwords are hashed with SCRAM-SHA-256 secure hashing algorithm before storing in the database.
+
+To determine if your automation controller instance has access to the database, you can do so with the command, awx-manage check_db command.
+
+
+
+Optionally, you can configure the PostgreSQL database as separate nodes that are not managed by the Red Hat Ansible Automation Platform installer. When the Ansible Automation Platform installer manages the database server, it configures the server with defaults that are generally recommended for most workloads. For more information about the settings you can use to improve database performance, see Database Settings.
+
+For more information about tuning your PostgreSQL server, see the PostgreSQL documentation.

@@ -1,0 +1,21 @@
+# Uploading collections to your namespaces
+
+You can upload internally developed collections in tar.gz file format to your private automation hub namespace for review and approval by an automation hub administrator.
+When approved, the collection moves to the Published content repository where automation hub users can view and download it.
+
+
+[NOTE]
+----
+Format your collection file name as follows: <my_namespace-my_collection-1.0.0.tar.gz>
+----
+
+* You have a namespace to which you can upload the collection.
+
+1. Log in to your private automation hub.
+2. From the navigation panel, select menu:Automation Content[Namespaces] and select a namespace.
+3. Click btn:[Upload collection].
+4. Click btn:[Select file] from the New collection dialog.
+5. Select the collection to upload.
+6. Click btn:[Upload].
+
+The My Imports screen shows a summary of tests and notifies you if the collection uploaded successfully or if it failed.

@@ -1,0 +1,29 @@
+# Activate with a manifest file
+
+If you have a subscriptions manifest, you can upload the manifest file either by using the Red Hat Ansible Automation Platform interface or manually in an Ansible Playbook.
+
+You must have a Red Hat Subscription Manifest file exported from the Red Hat Customer Portal. For more information, see Obtaining a manifest file.
+
+1. Complete steps to generate and download the manifest file
+2. Log in to Red Hat Ansible Automation Platform.
+3. If you are not immediately prompted for a manifest file, go to menu:Settings[Subscription].
+4. Select Subscription manifest.
+5. Click btn:[Browse] and select the manifest file.
+6. The Automation Analytics option is checked by default. These selections help Red Hat improve the product by delivering you a much better user experience. You can opt out by deselecting the options.
+7. Review the End User License Agreement and select I agree to the End User License Agreement.
+8. Click btn:[Finish].
+
+
+[NOTE]
+----
+If the btn:[BROWSE] button is disabled on the License page, clear the USERNAME and PASSWORD fields.
+----
+
+If you are unable to apply or update the subscription information by using the Red Hat Ansible Automation Platform interface, you can upload the subscriptions manifest manually in an Ansible Playbook by using the license module in the ansible.controller collection.
+
+
+```
+- name: Set the license using a file
+  license:
+  manifest: "/tmp/my_manifest.zip"
+```

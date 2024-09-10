@@ -1,0 +1,62 @@
+# Completing post installation tasks
+
+After you have completed the installation of Ansible Automation Platform, ensure that automation hub and automation controller deploy properly.
+
+# Adding a controller subscription
+
+1. Navigate to the FQDN of the Automation controller. Log in with the username admin and the password you specified as admin_password in your inventory file.
+2. Click btn:[Browse] and select the manifest.zip you created earlier.
+3. Click btn:[Next].
+4. Uncheck btn:[User analytics] and btn:[Automation analytics]. These rely on an internet connection and must be turned off.
+5. Click btn:[Next].
+6. Read the End User License Agreement and click btn:[Submit] if you agree.
+
+# Updating the CA trust store
+
+As part of your post-installation tasks, you must update the software&#8217;s certificates.
+By default, Ansible Automation Platform automation hub and automation controller are installed using self-signed certificates. Because of this, the controller does not trust the hub’s certificate and will not download the execution environment from the hub.
+
+To ensure that automation controller downloads the execution environment from automation hub, you must import the hub’s Certificate Authority (CA) certificate as a trusted certificate on the controller. You can do this in one of two ways, depending on whether SSH is available as root user between automation controller and private automation hub.
+
+## Using secure copy (SCP) as a root user
+
+If SSH is available as the root user between the controller and private automation hub, use SCP to copy the root certificate on the private automation hub to the controller.
+
+1. Run update-ca-trust on the controller to update the CA trust store:
+
+
+```
+$ sudo -i
+# scp <hub_fqdn>:/etc/pulp/certs/root.crt
+/etc/pki/ca-trust/source/anchors/automationhub-root.crt
+# update-ca-trust
+```
+
+
+## Copying and pasting as a non root user
+
+If SSH is unavailable as root between the private automation hub and the controller, copy the contents of the file /etc/pulp/certs/root.crt on the private automation hub and paste it into a new file on the controller called /etc/pki/ca-trust/source/anchors/automationhub-root.crt.
+
+1. Run update-ca-trust to update the CA trust store with the new certificate. On the private automation hub, run:
+
+
+```
+$ sudo -i
+# cat /etc/pulp/certs/root.crt
+(copy the contents of the file, including the lines with 'BEGIN CERTIFICATE' and
+'END CERTIFICATE')
+```
+
+
+1. On the automation controller:
+
+
+```
+$ sudo -i
+# vi /etc/pki/ca-trust/source/anchors/automationhub-root.crt
+(paste the contents of the root.crt file from the private automation hub into the new file and write to disk)
+# update-ca-trust
+```
+
+
+* For further information on unknown certificate authority, see Project sync fails with unknown certificate authority error in Ansible Automation Platform 2.1.

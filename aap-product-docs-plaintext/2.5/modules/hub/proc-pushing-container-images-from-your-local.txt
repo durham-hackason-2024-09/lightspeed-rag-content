@@ -1,0 +1,46 @@
+# Pushing container images from your local environment
+
+Use the following procedure to sign images on a local system and push those signed images to the automation hub registry.
+
+1. From a terminal, log in to Podman, or any container client currently in use:
+
+```
+> podman pull <container-name>
+```
+
+2. After the image is pulled, add tags (for example: latest, rc, beta, or version numbers, such as 1.0; 2.3, and so on):
+
+```
+> podman tag <container-name> <server-address>/<container-name>:<tag name>
+```
+
+3. Sign the image after changes have been made, and push it back up to the automation hub registry:
+
+```
+> podman push <server-address>/<container-name>:<tag name> --tls-verify=false --sign-by <reference to the gpg key on your local>
+```
+
+
+If the image is not signed, it can only be pushed with any current signature embedded. Alternatively, you can use the following script to push the image without signing it:
+
+```
+> podman push <server-address>/<container-name>:<tag name> --tls-verify=false
+```
+
+4. Once the image has been pushed, navigate to your automation hub.
+5. From the navigation panel, select menu:Automation Content[Execution Environments].
+6. To display the new execution environment, click the Refresh icon.
+7. Click the name of the image  to view your pushed image.
+
+The details page in automation hub indicates whether or not an image has been signed. If the details page indicates that an image is Unsigned, you can sign the image from automation hub  using the following steps:
+
+1. Click the image name to navigate to the details page.
+2. Click the btn:[More Actions] icon &#8942;.
+Three options are available:
+* Use in Controller
+* Delete
+* Sign
+3. Click Sign from the drop-down menu.
+
+The signing service signs the image.
+After the image is signed, the status changes to "signed".

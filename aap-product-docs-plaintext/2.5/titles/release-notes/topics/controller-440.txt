@@ -1,0 +1,5 @@
+# Automation controller
+
+Automation controller helps teams manage complex multitiered deployments by adding control, knowledge, and delegation to Ansible-powered environments.
+
+See Automation Controller Release Notes for 4.x for a full list of new features and enhancements.

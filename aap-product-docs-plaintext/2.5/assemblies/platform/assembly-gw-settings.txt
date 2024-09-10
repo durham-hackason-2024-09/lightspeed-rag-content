@@ -1,0 +1,162 @@
+# Configuring Ansible Automation Platform
+
+You can configure Ansible Automation platform from the Settings menu using the following selections:
+* Subscriptions
+* Platform gateway
+* User Preferences
+* Troubleshooting
+
+[NOTE]
+----
+The other selections available from the Settings menu are specific to automation execution. For more information, refer to the TitleControllerAdminGuide guide.
+----
+
+# Configuring subscriptions
+
+You can use the Subscription menu to view the details of your subscription, such as compliance, host-related statistics, or expiry, or you can apply a new subscription.
+
+1. From the navigation panel, select menu:Settings[Subscription].
+The Subscription page is displayed.
+![Initial subscriptions page]
+2. Click btn:[Edit subscription].
+3. You can either enter your Red Hat Username and Password, or attach a current Subscription Manifest in the Welcome page.
+![Suscriptions page for password or manifest]
+4. Click btn:[Next].
+The Automation Analytics page is displayed.
+![Automation analytics page]
+5. Select the checkbox to use analytics data to enhance future releases of Ansible Automation Platform and to give the Red Hat insights service to subscribers.
+6. Click btn:[Next] and agree to the terms of the license agreement.
+
+# Platform gateway
+
+The Platform gateway is the service that handles authentication and authorization for Ansible Automation Platform.
+It provides a single ingress into the Platform and serves the Platform&#8217;s user interface.
+
+Use the following procedure to configure the options.
+
+1. From the navigation panel, select menu:Settings[Platform gateway].
+2. The Platform gateway settings page is displayed.
+![Initial platform gateway settings page]
+3. To configure the options, click btn:[Edit].
+![Platform gateway configurable options]
+4. You can configure the following platform gateway options:
+* Platform gateway proxy url: URL to the platform gateway proxy layer.
+* Platform gateway proxy url ignore cert: Ignore the certificate to the platform gateway proxy layer.
+* Allow admin to set insecure: Whether a superuser account can save an insecure password when editing any local user account.
+* Platform gateway basic auth enabled: Enable basic authentication to the platform gateway API.
+
+Turning this off prevents all basic authentication (local users), so customers need to make sure they have their alternative authentication mechanisms correctly configured before doing so.
+
+Turning it off with only local authentication configured also prevents all access to the UI.
+
+Social auth username in full email: Enabling this setting alerts social authentication to use the full email as username instead of the full name.
+
+Platform gateway token name: The header name to push from the proxy to the backend service.
+
+[WARNING]
+----
+If this name is changed, backends must be updated to compensate.
+----
+* Platform gateway access token expiration: How long the access tokens are valid for.
+* JWT private key: The private key used to encrypt the JWT tokens sent to back end services.
+
+This should be a private RSA key and one should be generated automatically on installation.
+
+[NOTE]
+----
+Use caution when rotating the key as it will cause current sessions to fail until their JWT keys are reset.
+----
+* (Read only) JWT public key: The private key used to encrypt the JWT tokens sent to back end services.
+
+This should be a private RSA key and one should be generated automatically on installation.
+
+[NOTE]
+----
+See other services' documentation on how they consume this key.
+----
+
+You can configure the following Session options:
+* Session cookie age: Time in seconds before a session expires.
+
+You can configure the following Password security options:
+
+* Password min upper: How many uppercase characters need to be in a local password.
+* Password min length: The minimum length of a local password.
+* Password min digits: How many numerical characters need to be in a local password.
+* Password min special: How many special characters need to be in a local password.
+
+You can configure the following Custom login options:
+
+* Custom login info: Provide specific information (such as a legal notice or a disclaimer) to a text box in the login modal.
+* Custom logo : Provide an image file for setting up a custom logo (must be a data URL with a base64-encoded GIF, PNG, or JPEG image).
+
+You can configure the following additional settings:
+
+* JWT expiration buffer in seconds: The number of seconds before a JWT token's expiration to revoke from the cache.
+
+When authentication happens a JWT token is created for the user and that token is cached.
+When subsequent calls happen to services such as automation controller or EDA, the token is taken from the cache and sent to the service.
+Both the token and the cache of the token have an expiration time.
+If the token expires while in the cache the authentication process attempts results in a 401 error (unauthorized).
+This setting gives Red Hat Ansible Automation Platform a buffer by removing the JWT token from the cache before the token expires.
+When a token is revoked from cache a new token with a new expiration is generated and cached for the user.
+As a result, expired tokens from the cache are never used.
+This setting defaults to 2 seconds.
+If you have a large latency between platform gateway and your services and observe 401 responses you m  increase this setting to lower the number of 401 responses.
+* Status endpoint backend timeout seconds: Timeout (in seconds) for the status endpoint to wait when trying to connect to a backend.
+* Allow auth2 for external users: For security reasons, users from external authentication providers, such as LDAP, SAML, SSO, Radius, and others, are not allowed to create OAuth2 tokens.
+To change this behavior, enable this setting.
+Existing tokens are not deleted when this setting is turned off.
+
+1. Click btn:[Save] to save your changes.
+
+# User preferences
+
+You can use the User preferences page to customize your platform experience. Use this menu to control theming, layout options and formatting.
+
+
+[NOTE]
+----
+User preferences are stored locally in your browser. This means that they are unique to you and your machine.
+----
+
+1. From the navigation panel, select menu:Settings[User Preferences].
+![User preferences options]
+2. The User preferences page is displayed. Set the configurable options from the fields provided. Click the tooltip icon next to the field that you need additional information about.
+3. You can configure the following options:
+* Refresh interval: Select the refresh interval for the page.
+
+This refreshes the data on the page at the selected interval.
+
+The refresh happens in the background and does not reload the page.
+* Color Theme: Select from:
+* Dark theme
+* Light theme
+* System default
+* Table Layout: Select from:
+* Comfortable
+* Compact
+* Form Columns: Select from:
+* Multiple columns of inputs
+* Single column of inputs
+* Form Labels: Select from:
+* Labels above inputs
+* Labels beside inputs
+* Date Format Select from
+* Shows dates relative to the current time
+* Shows dates as date and time
+* Preferred Date Format: Sets the default format for when editing date fields.
+
+# Troubleshooting options
+
+You can use the Troubleshooting page to enable or disable certain flags that aid in debugging issues within Ansible Automation Platform.
+
+1. From the navigation panel, select menu:Settings[Troubleshooting].
+2. The Troubleshooting page is displayed.
+3. Click btn:[Edit].
+![Troubleshooting options]
+4. You can select the following options:
+* Enable or Disable tmp dir cleanup: Select this to enable or disable the cleanup of tmp directories generated during execution of a job after job execution completes.
+* Debug Web Requests: Select this to enable or disable web request profiling for debugging slow web requests.
+* Release Receptor Work: Select this to turn on or off the deletion of job pods after they complete or fail. This can be helpful in debugging why a job failed.
+5. Click btn:[Save] to save your changes.

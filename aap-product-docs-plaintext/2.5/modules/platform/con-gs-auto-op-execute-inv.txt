@@ -1,0 +1,4 @@
+# Executing an inventory
+
+1. From the navigation panel, select menu:Automation Execution[Infrastructure > Inventories].
+The Inventories window displays a list of inventories that are currently available, along with the following information:

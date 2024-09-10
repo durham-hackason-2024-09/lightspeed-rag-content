@@ -1,0 +1,19 @@
+# Configuring Automation Analytics
+
+Configure Automation Analytics on the Subscription page and the System Settings page of the Settings menu.
+
+1. From the navigation panel, select menu:Settings[Subscription].
+The Subscription page is displayed.
+2. If you have not already set up a subscription, do so now, and ensure that on the next page you have selected Automation Analytics to use analytics data to enhance future releases of Ansible Automation Platform and to provide the Red Hat insights service to subscribers.
+![Automation analytics page]
+3. From the navigation panel, select menu:Settings[System].
+4. Click btn:[Edit].
+5. On the System Settings page, select Gather data for Automation Analytics.
+6. You can also configure the following options:
+* Red Hat Customer Name: This username is used to send data to Automation Analytics.
+* Red Hat Customer Password: This password is used to send data to Automation Analytics.
+* Red Hat or Satellite Username: This username is used to send data to Automation Analytics.
+* Red Hat or Satellite password: This password is used to send data to Automation Analytics.
+* Last gather date for Automation Analytics: Set the date and time
+* Automation Analytics Gather Interval: Interval (in seconds) between data gathering.
+* Last gathered entries from the data collection service of Automation Analytics: TBD

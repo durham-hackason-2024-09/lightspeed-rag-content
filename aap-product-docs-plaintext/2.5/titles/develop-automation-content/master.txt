@@ -1,0 +1,589 @@
+# Developing automation content
+
+Thank you for your interest in Red Hat Ansible Automation Platform. Ansible Automation Platform is a commercial offering that helps teams manage complex multi-tier deployments by adding control, knowledge, and delegation to Ansible-powered environments.
+This guide describes how to develop Ansible automation content and how to use it to run automation jobs from Red Hat Ansible Automation Platform.
+This document has been updated to include information for the latest release of Ansible Automation Platform.
+
+# Providing feedback on Red Hat documentation
+
+If you have a suggestion to improve this documentation, or find an error, you can contact technical support at https://access.redhat.com to open a request.
+
+# Ansible developer tools
+
+Ansible developer tools (ansible-dev-tools) is a suite of tools provided with Ansible Automation Platform to help automation creators to
+create, test, and deploy playbook projects, execution environments, and collections.
+
+The Ansible VS Code extension by Red Hat integrates most of the Ansible developer tools:
+you can use these tools from the VS Code user interface.
+
+Use Ansible developer tools during local development of playbooks, local testing, and in a CI pipeline (linting and testing).
+
+This document describes how to use Ansible developer tools to create a playbook project that contains playbooks and roles that you can reuse within the project.
+It also describes how to test the playbooks and deploy the project on your {AAP} instance so that you can use the playbooks in automation jobs.
+
+## Ansible developer tools components
+
+You can operate some Ansible developer tools from the VS Code UI when you have installed the Ansible extension,
+and the remainder from the command line.
+VS Code is a free open-source code editor available on Linux, Mac, and Windows.
+
+Ansible VS Code extension:: This is not packaged with the Ansible Automation Platform RPM package, but it is an integral part of the automation creation workflow.
+From the VS Code UI, you can use the Ansible developer tools for the following tasks:
+* Scaffold directories for a playbook project or a collection.
+* Write playbooks with the help of syntax highlighting and auto-completion.
+* Debug your playbooks with a linter.
+* Execute playbooks with Ansible Core using ansible-playbook.
+* Execute playbooks in an execution environment with ansible-navigator.
+
+From the VS Code extension, you can also connect to Red Hat Ansible Lightspeed with IBM watsonx Code Assistant.
+Command-line Ansible developer tools:: You can perform the following tasks with Ansible developer tools from the command line,
+including the terminal in VS Code:
+* Create an execution environment.
+* Test your playbooks, roles, modules, plugins and collections.
+
+# Workflow for developing automation content
+
+## Workflow
+
+### Create
+
+In the create  stage, you create a new playbook project locally, using VS Code. The following is a typical workflow:
+
+1. Install and run the Ansible extension in VS Code.
+2. Scaffold a playbook project from VS Code.
+3. Add playbook files to your project and edit them in VS Code.
+
+### Test
+
+1. Debug your playbook with the help of ansible-lint.
+2. Select or create an automation execution environment so that your local environment replicates the environment on Ansible Automation Platform.
+3. Run your playbooks from VS Code, using ansible-playbook or using ansible-navigator with an execution environment.
+4. Test your playbooks by running them on an execution environment that replicates your production environment.
+
+### Deploy
+
+1. Push your playbooks project to a source control repository.
+2. Set up credentials on Ansible Automation Platform to pull from your source control repository and create a project for your playbook repository.
+3. If you have created an execution environment, push it to private automation hub.
+4. Create a job template on Ansible Automation Platform that runs a playbook from your project, and specify the execution environment that you want to use.
+
+# Installing Ansible developer tools
+
+Red Hat provides two options for installing Ansible developer tools.
+Both options require VS Code (Visual Studio Code) with the Ansible extension added.
+
+* Installation on a RHEL container running inside VS Code.
+You can install this option on MacOS, Windows, and Linux systems.
+* Installation on your local RHEL system using an RPM (Red Hat Package Manager) package.
+
+## Requirements
+
+Ansible developer tools require Python 3.10 or later.
+
+## Installing VS Code
+
+To install VS Code, follow the instructions on the Download Visual Studio Code page in the Visual Studio Code documentation.
+
+## Installing the VS Code Ansible extension
+
+The Ansible extension adds language support for Ansible to VS Code.
+It incorporates Ansible developer tools to facilitate creating and running automation content.
+
+For a full description of the Ansible extension, see the Visual Studio Code Marketplace.
+
+See Learning path - Getting Started with the Ansible VS Code Extension for tutorials on working with the extension.
+
+To install the Ansible VS Code extension:
+
+1. Open VS Code.
+2. Click the Extensions () icon in the Activity Bar, or click , to display the Extensions view.
+3. In the search field in the Extensions view, type Ansible Red Hat.
+4. Select the Ansible extension and click Install.
+
+When the Ansible extension is enabled, create or open a .yml file in VS Code. It can be an empty file.
+The  language identified for the .yml file is Ansible.
+It is displayed in the Status bar.
+
+When the language for a file is recognized as Ansible, the Ansible extension provides features such as auto-completion, hover, diagnostics, and goto.
+
+## Configuring Ansible extension settings
+
+The Ansible extension supports multiple configuration options.
+
+You can configure the settings for the extension on a user level, on a workspace level, or for a particular directory.
+User-based settings are applied globally for any instance of VS Code that is opened.
+Workspace settings are stored within your workspace and only apply when the current workspace is opened.
+
+It is useful to configure settings for your workspace for the following reasons:
+
+* If you define and maintain configurations specific to your playbook project,
+you can customize your Ansible development environment for individual projects without altering your preferred setup for other work.
+You can have different settings for a Python project, an Ansible project, and a C++ project, each optimized for the respective stack without the need to manually reconfigure settings each time you switch projects.
+* If you include workspace settings when setting up version control for a project you want to share with your team, everyone uses the same configuration for that project.
+
+1. Open the Ansible extension settings:
+1. Click the 'Extensions' icon in the activity bar.
+2. Select the Ansible extension, and click the 'gear' icon and then Extension Settings to display the extension settings.
+
+Alternatively, click  to open the Settings page.
+3. Enter Ansible in the search bar to display the settings for the extension.
+2. Select the Workspace tab to configure your settings for the current VS Code workspace.
+3. The Ansible extension settings are pre-populated.
+Modify the settings to suit your requirements:
+* Check the  box to enable ansible-lint.
+* Check the Ansible Execution Environment: Enabled box to use an execution environment.
+* Specify the execution environment image you want to use in the Ansible > Execution Environment: image field.
+* To use Red Hat Ansible Lightspeed, check the Ansible > Lightspeed: Enabled box, and enter the URL for Lightspeed.
+
+The settings are documented on the Ansible VS Code Extension by Red Hat page in the VisualStudio marketplace documentation.
+
+## Installing Ansible developer tools on a container inside VS Code
+
+The Dev Containers VS Code extension requires a config file to store settings for your dev containers.
+After you have created a config file for your dev container, reopen your directory in a container in VS Code.
+
+1. You have installed a containerization platform, for example Podman, Podman Desktop, Docker, or Docker Desktop.
+2. You have a Red Hat login and you can login to the Red Hat registry at registry.redhat.io.
+3. You have installed VS Code.
+4. You have installed the Ansible extension in VS Code.
+5. You have installed the Microsoft Dev Containers extension in VS Code.
+
+1. In VS Code, open the directory where you want to store the configuration files for your development container.
+2. Create a subdirectory called .devcontainer.
+3. In the .devcontainer directory, create a file called devcontainer.json.
+
+You must use different settings depending on whether you are using Podman or Docker.
+* If you are using Podman or Podman desktop, add the following text to devcontainer.json:
+
+```
+{
+  "name": "ansible-dev-container-podman",
+  "image": "registry.redhat.io/ansible-automation-platform-25/ansible-dev-tools-rhel8:latest",
+  "containerUser": "root",
+  "runArgs": [
+    "--cap-add=SYS_ADMIN",
+    "--cap-add=SYS_RESOURCE",
+    "--device",
+    "/dev/fuse",
+    "--security-opt",
+    "seccomp=unconfined",
+    "--security-opt",
+    "label=disable",
+    "--security-opt",
+    "apparmor=unconfined",
+    "--userns=host",
+    "--hostname=ansible-dev-container",
+    "--volume",
+    "ansible-dev-tools-container-storage:/var/lib/containers"
+  ],
+  "customizations": {
+    "VS Codevscode": {
+      "extensions": ["redhat.ansible"]
+    }
+  }
+}
+```
+
+* If you are using Docker or Docker desktop, add the following text to devcontainer.json:
+
+```
+{
+  "name": "ansible-dev-container-docker",
+  "image": "registry.redhat.io/ansible-automation-platform-25/ansible-dev-tools-rhel8:latest",
+  "containerUser": "podman",
+  "runArgs": [
+    "--security-opt",
+    "seccomp=unconfined",
+    "--security-opt",
+    "label=disable",
+    "--cap-add=SYS_ADMIN",
+    "--cap-add=SYS_RESOURCE",
+    "--device",
+    "/dev/fuse",
+    "--security-opt",
+    "apparmor=unconfined",
+    "--hostname=ansible-dev-container"
+  ],
+  "updateRemoteUserUID": true,
+  "customizations": {
+    "VS Codevscode": {
+      "extensions": ["redhat.ansible"]
+    }
+  }
+}
+```
+
+4. Reopen the directory in a container.
+* If VS Code detects that your directory contains the devcontainer.json file, the following notification appears:
+![Reopen in container]
+
+Click Reopen in Container.
+* If the notification does not appear, click the Remote () icon. In the dropdown menu that appears, select Reopen in Container.
+
+The Remote () status in the VS Code Status bar displays opening Remote and a notification indicates the progress in opening the container.
+
+When the directory reopens in a container, the Remote () status displays Dev Container: ansible-dev-container.
+
+## Installing Ansible developer tools from a package on RHEL
+
+Ansible developer tools is bundled in the Ansible Automation Platform RPM (Red Hat Package Manager) package.
+Refer to the Red Hat Ansible Automation Platform Installation guide documentation for information on installing Ansible Automation Platform.
+
+* You have installed RHEL.
+* You have registered your system with Red Hat Subscription Manager.
+
+1. Run the following command to check whether Simple Content Access (SCA) is enabled:
+
+```shell
+$ su subscription-manager status
+```
+
+
+If Simple Content Access is enabled, the output contains the following message:
+
+```
+Content Access Mode is set to Simple Content Access.
+```
+
+1. If Simple Content Access is not enabled, attach the Red Hat Ansible Automation Platform SKU:
+
+```shell
+$ subscription-manager attach --pool=<sku-pool-id>
+```
+
+2. Install Ansible developer tools with the following command:
+
+```shell
+$ sudo dnf install --enablerepo=ansible-automation-platform-2.4-for-rhel-8-x86_64-rpms ansible-dev-tools
+```
+
+
+```
+$ sudo dnf install --enablerepo=ansible-automation-platform-2.4-for-rhel-9-x86_64-rpms ansible-dev-tools
+```
+
+
+Verify that the Ansible developer tools components have been installed:
+
+
+```shell
+$ rpm -aq | grep ansible
+```
+
+
+The output displays the Ansible packages that are installed:
+
+
+```
+ansible-sign-0.1.1-2.el9ap.noarch
+ansible-creator-24.4.1-1.el9ap.noarch
+python3.11-ansible-runner-2.4.0-0.1.20240412.git764790f.el9ap.noarch
+ansible-runner-2.4.0-0.1.20240412.git764790f.el9ap.noarch
+ansible-builder-3.1.0-0.2.20240413.git167ed5c.el9ap.noarch
+ansible-dev-environment-24.1.0-2.el9ap.noarch
+ansible-core-2.16.6-0.1.20240413.gite636132.el9ap.noarch
+python3.11-ansible-compat-4.1.11-2.el9ap.noarch
+python3.11-pytest-ansible-24.1.2-1.el9ap.noarch
+ansible-lint-6.14.3-4.el9ap.noarch
+ansible-navigator-3.4.1-2.el9ap.noarch
+python3.11-tox-ansible-24.2.0-1.el9ap.noarch
+ansible-dev-tools-2.5-2.el9ap.noarch
+```
+
+
+On successful installation, you can view the help documentation for ansible-creator:
+
+
+```
+$ ansible-creator --help
+
+usage: ansible-creator [-h] [--version] command ...
+
+The fastest way to generate all your ansible content.
+
+Positional arguments:
+ command
+  add           Add resources to an existing Ansible project.
+  init          Initialize a new Ansible project.
+
+Options:
+ --version      Print ansible-creator version and exit.
+ -h     --help  Show this help message and exit
+```
+
+
+# Creating a playbook project
+
+## Scaffolding a playbook project
+
+The following steps describe the process for scaffolding a new playbook project with the Ansible VS Code extension.
+
+1. Prerequisites
+* You have installed Ansible developer tools.
+* You have installed and opened the Ansible VS Code extension.
+* You have identified a directory where you want to save the project.
+
+1. Open VS Code.
+2. Click the Ansible icon in the VS Code activity bar to open the Ansible extension.
+3. Select Get started in the Ansible content creator section.
+
+The Ansible content creator tab opens.
+4. In the Create section, click Ansible playbook project.
+
+The Create Ansible project tab opens.
+5. In the form in the Create Ansible project tab, enter the following:
+* Destination directory: Enter the path to the directory where you want to scaffold your new playbook project.
+
+[NOTE]
+----
+If you enter an existing directory name, the scaffolding process overwrites the contents of that directory.
+The scaffold process only allows you to use an existing directory if you enable the Force option.
+----
+* If you are using the containerized version of Ansible Dev tools, the destination directory path is relative to the container, not a path in your local system. To discover the current directory name in the container, run the pwd command in a terminal in VS Code. If the current directory in the container is workspaces, enter workspaces/<destination_directory_name>.
+* If you are using a locally installed version of Ansible Dev tools, enter the full path to the directory, for example /user/<username>/projects/<destination_directory_name>.
+* SCM organization and SCM project: Enter a name for the directory and subdirectory where you can store roles that you create for your playbooks.
+6. Enter a name for the directory where you want to scaffold your new playbook project.
+
+After the project directory has been created, the following message appears in the Logs pane of the Create Ansible Project tab.
+In this example, the destination directory name is destination_directory_name.
+
+
+```
+------------------ ansible-creator logs ------------------
+    Note: ansible project created at /Users/username/test_project
+```
+
+
+The following directories and files are created in your project directory:
+
+
+```
+$ tree -a -L 5 .
+├── .devcontainer
+│   ├── devcontainer.json
+│   ├── docker
+│   │   └── devcontainer.json
+│   └── podman
+│       └── devcontainer.json
+├── .gitignore
+├── README.md
+├── ansible-navigator.yml
+├── ansible.cfg
+├── collections
+│   ├── ansible_collections
+│   │   └── scm_organization_name
+│   │       └── scm_project_name
+│   └── requirements.yml
+├── devfile.yaml
+├── inventory
+│   ├── group_vars
+│   │   ├── all.yml
+│   │   └── web_servers.yml
+│   ├── host_vars
+│   │   ├── server1.yml
+│   │   ├── server2.yml
+│   │   ├── server3.yml
+│   │   ├── switch1.yml
+│   │   └── switch2.yml
+│   └── hosts.yml
+├── linux_playbook.yml
+├── network_playbook.yml
+└── site.yml
+```
+
+
+# Writing and running a playbook with Ansible developer tools
+
+## Writing your first playbook
+
+The instructions below describe how Ansible developer tools help you to create and run your first playbook in VS Code.
+
+* You have installed and opened the Ansible VS Code extension.
+* You have opened a terminal in VS Code.
+* You have installed ansible-devtools.
+
+1. Create a new .yml file in VS Code for your playbook, for example example_playbook.yml. Put it in the same directory level as the example site.yml file.
+2. Add the following example code into the playbook file and save the file.
+The playbook consists of a single play that executes a ping to your local machine.
+
+```
+- name: My first play
+  hosts: localhost
+  tasks:
+    - name: Ping my hosts
+      ansible.builtin.ping:
+```
+
+
+Ansible-lint runs in the background and displays errors in the Problems tab of the terminal.
+There are no errors in this playbook:
+![Ansible-lint showing no errors in a playbook]
+3. Save your playbook file.
+
+## Inspecting your playbook
+
+The Ansible VS Code extension provides syntax highlighting and assists you with indentation in .yml files.
+
+The following rules apply for playbook files:
+
+* Every playbook file must finish with a blank line.
+* Trailing spaces at the end of lines are not allowed.
+* Every playbook and every play require an identifier (name).
+
+### Inline help
+
+The Ansible extension also provides inline help when you are editing your playbook file.
+
+* If you hover your mouse over a keyword or a module name, the Ansible extension provides documentation:
+![Ansible-lint showing no errors in a playbook]
+* If you begin to type the name of a module, for example ansible.builtin.ping, the extension provides a list of suggestions.
+
+Select one of the suggestions to autocomplete the line.
+![Ansible-lint showing no errors in a playbook]
+
+## Running your playbook
+
+The Ansible VS Code extension provides two options to run your playbook:
+
+* ansible-playbook runs the playbook on your local machine using Ansible Core.
+* ansible-navigator runs the playbook in an execution environment in the same manner that Ansible Automation Platform runs an automation job.
+You specify the base image for the execution environment in the Ansible extension settings.
+
+### Running your playbook with ansible-playbook
+
+* To run a playbook, right-click the playbook name in the Explorer pane, then select .
+
+
+
+The output is displayed in the Terminal tab of the VS Code terminal.
+The ok=2 and failed=0 messages indicate that the playbook ran successfully.
+
+
+
+### Running your playbook with ansible-navigator
+
+* In the Ansible extension settings, enable the use of an execution environment in Ansible Execution Environment > Enabled.
+* Enter the path or URL for the execution environment image in Ansible > Execution Environment: Image.
+
+1. To run a playbook, right-click the playbook name in the Explorer pane, then select .
+
+The output is displayed in the Terminal tab of the VS Code terminal.
+The Successful status indicates that the playbook ran successfully.
+
+
+2. Enter the number next to a play to step into the play results.
+The example playbook only contains one play.
+Enter 0 to view the status of the tasks executed in the play.
+
+
+
+Type the number next to a task to review the task results.
+
+For more information on running playbooks with automation content navigator, see
+Executing a playbook from automation content navigator.
+
+### Working with execution environments
+
+You can view the automation execution environments provided by Red Hat in the
+Red Hat Ecosystem Catalog.
+
+Click on an execution environment for information on how to download it.
+
+For example, to download the minimal RHEL 8 base image, run the following command:
+
+
+```
+$ podman pull registry.redhat.io/ansible-automation-platform-25/ee-minimal-rhel9
+```
+
+
+You can build and create custom execution environments with ansible-builder.
+For more information about working with execution environments locally, see
+Creating and consuming execution environments.
+
+After customizing your execution environment, you can push your new image to the container registry in automation hub. See
+Publishing an automation execution environment
+in the Creating and consuming execution environments documentation.
+Creating and consuming execution environments.
+
+## Debugging your playbook
+
+### Error messages
+
+The following playbook contains multiple errors:
+
+
+```
+- name:
+  hosts: localhost
+  tasks:
+   - name:
+     ansible.builtin.ping:
+```
+
+
+The errors are indicated with a wavy underline in VS Code.
+Hover your mouse over an error to view the details:
+
+![Popup message explaining a playbook error]
+
+The errors are listed in the Problems tab of the VS Code terminal.
+Playbook files that contain errors are indicated with a number in the Explorer pane:
+
+![Playbook errors shown in Problems tab and explorer list]
+
+$[0].tasks[0].name None is not of type 'string' indicates that the playbook does not have a label.
+
+## Testing your playbooks
+
+To test your playbooks in your project, run them in a non-production environment such as a lab setup or a virtual machine.
+
+Automation content navigator (ansible-navigator) is a text-based user interface (TUI) for developing and troubleshooting Ansible content with execution environments.
+
+Running a playbook using ansible-navigator generates verbose output that you can inspect to check whether the playbook is running the way you expected.
+You can specify the execution environment that you want to run your playbooks on, so that your tests replicate the production setup on Ansible Automation Platform:
+
+* To run a playbook on an execution environment, run the following command from the terminal in VS Code:
+
+```
+$ ansible-navigator run <playbook_name.yml> -eei <execution_environment_name>
+```
+
+
+For example, to execute a playbook called site.yml on the Ansible Automation Platform RHEL 9 minimum execution environment, run the following command from the terminal in VS Code.
+
+```
+ansible-navigator run site.yml --eei ee-minimal-rhel8
+```
+
+
+The output is displayed in the terminal.
+You can inspect the results and step into each play and task that was executed.
+
+For more information about running playbooks, refer to
+Running Ansible playbooks with automation content navigator
+in the Automation content navigator creator guide.
+
+# Publishing and running your playbooks in Ansible Automation Platform
+
+The following procedures describe how to deploy your new playbooks in your instance of Ansible Automation Platform so that you can use them to run automation jobs.
+
+## Saving your project in SCM
+
+Save your playbook project as a repository in your source control management system, for example GitHub.
+
+1. Initialize your project directory as a git repository.
+2. Push your project up to a source control system such as GitHub.
+
+## Running your playbook in Ansible Automation Platform
+
+To run your playbook in Ansible Automation Platform, you must create a project in automation controller for the repository where you stored your playbook project.
+You can then create a job template for each playbook from the project.
+
+1. In a browser, log in to automation controller.
+2. Configure a Source Control credential type for your source control system if necessary. See the Creating new credentials section of the Automation controller user guide for more details.
+3. In automation controller, create a project for the GitHub repository where you stored your playbook project.
+Refer to the Projects chapter of the Automation controller user guide.
+4. Create a job template that uses a playbook from the project that you created.
+Refer to the Job Templates chapter of the Automation controller user guide.
+5. Run your playbook from automation controller by launching the job template. Refer to the Launching a job template section of the Automation controller user guide.

@@ -1,0 +1,11 @@
+# Providing access to a remote configuration
+
+After you create a remote configuration, you must provide access to it before anyone can use it.
+
+1. Log in to private automation hub.
+2. From the navigation panel, select menu:Automation Content[Remotes].
+3. Locate your repository in the list, click the btn:[More Actions] icon &#8942;, and select Edit.
+4. Select the Access tab.
+5. Select a group for Repository owners. See Configuring user access for your private automation hub for information about implementing user access.
+6. Select the appropriate roles for the selected group.
+7. Click btn:[Save].

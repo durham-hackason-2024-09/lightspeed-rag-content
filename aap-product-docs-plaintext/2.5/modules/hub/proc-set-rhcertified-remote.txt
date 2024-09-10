@@ -1,0 +1,29 @@
+# Configuring the rh-certified remote repository and synchronizing Red Hat Ansible Certified Content Collection
+
+You can edit the rh-certified remote repository to synchronize collections from automation hub hosted on console.redhat.com to your private automation hub.
+By default, your private automation hub rh-certified repository includes the URL for the entire group of Ansible Certified Content Collections.
+
+To use only those collections specified by your organization, a private automation hub administrator can upload manually-created requirements files from the rh-certified remote.
+
+For more information about using requirements files, see Install multiple collections with a requirements file in the Using Ansible collections guide.
+
+If you have collections A, B, and C in your requirements file, and a new collection X is added to console.redhat.com that you want to use, you must add X to your requirements file for private automation hub to synchronize it.
+
+* You have valid Modify Ansible repo content permissions.
+For more information on permissions, see Configuring user access for your private automation hub.
+* You have retrieved the Sync URL and API Token from the automation hub hosted service on console.redhat.com.
+* You have configured access to port 443. This is required for synchronizing certified collections. For more information, see the automation hub table in the Network ports and protocols chapter of the Red Hat Ansible Automation Platform Planning Guide.
+
+1. Log in to your private automation hub.
+2. From the navigation panel, select menu:Automation Content[Remotes].
+3. In the rh-certified remote repository, click the btn:[More Actions] icon &#8942; and click btn:[Edit].
+4. In the URL field, paste the Sync URL.
+5. In the Token field, paste the token you acquired from console.redhat.com.
+6. Click btn:[Save].
+
+You can now synchronize collections between your organization synclist on console.redhat.com and your private automation hub.
+7. Click the btn:[More Actions] icon &#8942; and select Sync.
+
+The Sync status notification updates to notify you that the Red Hat Certified Content Collections synchronization is complete.
+
+* Select Red Hat Certified from the collections content drop-down list to confirm that your collections content has synchronized successfully.

@@ -1,0 +1,24 @@
+# Creating a new application
+
+When integrating an external web application with automation controller the web application might need to create OAuth2 Tokens on behalf of users of the web application.
+Creating an application with the Authorization Code grant type is the preferred way to do this for the following reasons:
+
+* External applications can obtain a token for users, using their credentials.
+* Compartmentalized tokens issued for a particular application, enables those tokens to be easily managed.
+For example, revoking all tokens associated with that application.
+
+1. From the navigation panel, select menu:Access Management[OAuth Applications].
+2. Click btn:[Create application].
+The Create Application page opens.
+3. Enter the following details:
+* Name (required): give a name for the application you want to create
+* Optional: Description: give a short description for your application
+* Organization (required): give an organization with which this application is associated
+* Authorization grant type (required): select one of the grant types to use for the user to get tokens for this application.
+For more information, see Application using password grant type section of the Configuring automation execution.
+* Client Type (required): select the level of security of the client device.
+* Redirect URIS: give a list of allowed URIs, separated by spaces.
+You need this if you specified the grant type to be Authorization code.
+4. Click btn:[Create application], or click btn:[Cancel] to abandon your changes.
+
+The client ID displays in a window.

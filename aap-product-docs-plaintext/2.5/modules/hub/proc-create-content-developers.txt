@@ -1,0 +1,19 @@
+# Creating a new group for content curators
+
+You can create a new group in private automation hub designed to support content curation in your organization. This group can contribute internally developed collections for publication in private automation hub.
+
+To help content developers create a namespace and upload their internally developed collections to private automation hub, you must first create and edit a group and assign the required permissions.
+
+* You have administrative permissions in private automation hub and can create groups.
+
+1. Log in to your private automation hub.
+2. From the navigation panel, select menu:User Access[Groups] and click btn:[Create].
+3. Enter Content Engineering as a Name for the group in the modal and click btn:[Create]. You have created the new group and the Groups page opens.
+4. On the Permissions tab, click btn:[Edit].
+5. Under Namespaces, add permissions for Add Namespace, Upload to Namespace, and Change Namespace.
+6. Click btn:[Save].
+
+The new group is created with the permissions that you assigned. You can then add users to the group.
+7. Click the Users tab on the Groups page.
+8. Click btn:[Add].
+9. Select users and click btn:[Add].

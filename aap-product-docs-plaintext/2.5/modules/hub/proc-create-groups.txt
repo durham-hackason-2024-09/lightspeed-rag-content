@@ -1,0 +1,6 @@
+# Creating a new group in private automation hub
+
+You can create and assign permissions to a group in private automation hub that enables users to access specified features in the system.
+By default, the Admin group in the automation hub has all permissions assigned and is available on initial login. Use the credentials created when installing private automation hub.
+
+For more information, see Creating a new group in private automation hub in the Getting started with automation hub guide.

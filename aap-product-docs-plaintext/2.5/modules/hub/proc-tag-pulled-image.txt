@@ -1,0 +1,21 @@
+# Tagging images for use in automation hub
+
+After you pull images from a registry, tag them for use in your private automation hub container registry.
+
+* You have pulled a container image from an external registry.
+* You have the FQDN or IP address of the automation hub instance.
+
+* Tag a local image with the automation hub container repository:
+
+```
+$ podman tag registry.redhat.io/<container_image_name>:<tag> <automation_hub_hostname>/<container_image_name>
+```
+
+
+1. List the images in local storage:
+
+```
+$ podman images
+```
+
+2. Verify that the image you recently tagged with your automation hub information is contained in the list.

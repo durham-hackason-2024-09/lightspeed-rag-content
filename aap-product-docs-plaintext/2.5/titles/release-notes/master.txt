@@ -1,0 +1,190 @@
+# Release notes
+
+# Providing feedback on Red Hat documentation
+
+If you have a suggestion to improve this documentation, or find an error, you can contact technical support at https://access.redhat.com to open a request.
+
+# Overview of Red Hat Ansible Automation Platform
+
+Red Hat Ansible Automation Platform simplifies the development and operation of automation workloads for managing enterprise application infrastructure lifecycles.
+Ansible Automation Platform works across multiple IT domains including operations, networking, security, and development, as well as across diverse hybrid environments.
+Simple to adopt, use, and understand, Ansible Automation Platform provides the tools needed to rapidly implement enterprise-wide automation, no matter where you are in your automation journey.
+
+## What is included in Ansible Automation Platform
+
+
+
+## Red Hat Ansible Automation Platform life cycle
+
+Red Hat provides different levels of maintenance for each Ansible Automation Platform release. For more information, see Red Hat Ansible Automation Platform Life Cycle.
+
+## Upgrading Ansible Automation Platform
+
+When upgrading, do not use yum update. Use the installation program instead. The installation program performs all of the necessary actions required to upgrade to the latest versions of Ansible Automation Platform, including automation controller and private automation hub.
+
+* For information about the components included in Ansible Automation Platform, see the table in What is included in Ansible Automation Platform.
+* For more information about upgrading Ansible Automation Platform, see Red Hat Ansible Automation Platform upgrade and migration guide.
+* For procedures related to using the Ansible Automation Platform installer, see Ansible Automation Platform installation guide.
+
+# Overview of the Ansible Automation Platform 2.4 release
+
+## New features and enhancements
+
+Ansible Automation Platform 2.4 includes the following enhancements:
+
+* Previously, the execution environment container images were based on RHEL 8 only. With Ansible Automation Platform 2.4 onwards, the execution environment container images are now also available on RHEL 9.
+The execution environment includes the following container images:
+* ansible-python-base
+* ansible-python-toolkit
+* ansible-builder
+* ee-minimal
+* ee-supported
+* The ansible-builder project recently released Ansible Builder version 3, a much-improved and simplified approach to creating execution environments.
+You can use the following configuration YAML keys with Ansible Builder version 3:
+* additional_build_files
+* additional_build_steps
+* build_arg_defaults
+* dependencies
+* images
+* options
+* version
+* Ansible Automation Platform 2.4 and later versions can now run on ARM platforms, including both the control plane and the execution environments.
+* Added an option to configure the SSO logout URL for automation hub if you need to change it from the default value.
+* Updated the ansible-lint RPM package to version 6.14.3.
+* Updated Django for potential denial-of-service vulnerability in file uploads (CVE-2023-24580).
+* Updated sqlparse for ReDOS vulnerability (CVE-2023-30608).
+* Updated Django for potential denial-of-service in Accept-Language headers (CVE-2023-23969).
+* Ansible Automation Platform 2.4 adds the ability to install automation controller, automation hub, and Event-Driven Ansible on IBM Power (ppc64le), IBM Z (s390x), and IBM® LinuxONE (s390x) architectures.
+
+* For more information about using Ansible Builder version 3, see Ansible Builder Documentation and Execution Environment Setup Reference.
+
+## Technology Preview
+
+Technology Preview features are not supported with Red&#160;Hat production service level agreements (SLAs) and might not be functionally complete.
+Red&#160;Hat does not recommend using them in production.
+These features provide early access to upcoming product features, enabling customers to test functionality and provide feedback during the development process.
+
+For more information about the support scope of Red&#160;Hat Technology Preview features, see Technology Preview Features Support Scope.
+
+The following are Technology Preview features:
+
+* Starting with Ansible Automation Platform 2.4, the Platform Resource Operator can be used to create the following resources in automation controller by applying YAML to your OpenShift cluster:
+* Inventories
+* Projects
+* Instance Groups
+* Credentials
+* Schedules
+* Workflow Job Templates
+* Launch Workflows
+
+You can now configure the Controller Access Token for each resource with the connection_secret parameter, rather than the tower_auth_secret parameter. This change is compatible with earlier versions, but the tower_auth_secret parameter is now deprecated and will be removed in a future release.
+
+* For the most recent list of Technology Preview features, see Ansible Automation Platform - Preview Features.
+* For information about execution node enhancements on OpenShift deployments, see Managing Capacity With Instances.
+
+## Deprecated and removed features
+
+Deprecated functionality is still included in Ansible Automation Platform and continues to be supported. However, the functionality will be removed in a future release of Ansible Automation Platform and is not recommended for new deployments.
+
+The following functionality was deprecated and removed in Ansible Automation Platform 2.4:
+
+* On-premise component automation services catalog is now removed from Ansible Automation Platform 2.4 onwards.
+* With the Ansible Automation Platform 2.4 release, the execution environment container image for Ansible 2.9 (ee-29-rhel-8) is no longer loaded into the automation controller configuration by default.
+* Although you can still synchronize content, the use of synclists is deprecated and will be removed in a later release. Instead, private automation hub administrators can upload manually-created requirements files from the rh-certified remote.
+* You can now configure the Controller Access Token for each resource with the connection_secret parameter, rather than the tower_auth_secret parameter. This change is compatible with earlier versions, but the tower_auth_secret parameter is now deprecated and will be removed in a future release.
+* Smart inventories have been deprecated in favor of constructed inventories and will be removed in a future release.
+
+## Bug fixes
+
+Ansible Automation Platform 2.4 includes the following bug fixes:
+
+* Updated the installation program to ensure that collection auto signing cannot be enabled without enabling the collection signing service.
+* Fixed an issue with restoring backups when the installed automation controller version is different from the backup version.
+* Fixed an issue with not adding user defined galaxy-importer settings to galaxy-importer.cfg file.
+* Added missing X-Forwarded-For header information to nginx logs.
+* Removed unnecessary receptor peer name validation when IP address is used as the name.
+* Updated the outdated base_packages.txt file that is included in the bundle installer.
+* Fixed an issue where upgrading the Ansible Automation Platform did not update the nginx package by default.
+* Fixed an issue where an awx user was created without creating an awx group on execution nodes.
+* Fixed the assignment of package version variable to work with flat file inventories.
+* Added a FQDN check for the automation hub hostname required to run the Skopeo commands.
+* Fixed the front end URL for Red Hat Single Sign On (SSO) so it is now properly configured after you specify the sso_redirect_host variable.
+* Fixed the variable precedence for all component nginx_tls_files_remote variables.
+* Fixed the setup.sh script to escalate privileges if necessary for installing Ansible Automation Platform.
+* Fixed an issue when restoring a backup to an automation hub with a different hostname.
+
+# Automation controller
+
+Automation controller helps teams manage complex multitiered deployments by adding control, knowledge, and delegation to Ansible-powered environments.
+
+See Automation Controller Release Notes for 4.x for a full list of new features and enhancements.
+
+# Event-Driven Ansible
+
+Event-Driven Ansible is a new way to enhance and expand automation by improving IT speed and agility while enabling consistency and resilience. Event-Driven Ansible is designed for simplicity and flexibility.
+
+* Both contributor and editor roles cannot set the AWX token. Only users with administrator roles can set the AWX token.
+* Activation-job pods do not have request limits.
+* The onboarding wizard does not request a controller token creation.
+* Users cannot filter through a list of tokens under the Controller Token tab.
+* Only the users with administrator rights can set or change their passwords.
+* If there is a failure, an activation with restart policy set to Always is unable to restart the failed activation.
+* Disabling and enabling an activation causes the restart count to increase by one count. This behavior results in an incorrect restart count.
+* You must run Podman pods with memory limits.
+* Users can add multiple tokens even when only the first AWX token is used.
+* A race condition occurs when creating and rapidly deleting an activation causes errors.
+* When users filter any list, only the items that are on the list get filtered.
+* When ongoing activations start multiple jobs, a few jobs are not recorded in the audit logs.
+* When a job template fails, a few key attributes are missing in the event payload.
+* Restart policy in a Kubernetes deployment does not restart successful activations that are marked as failed.
+* An incorrect status is reported for activations that are disabled or enabled.
+* If the run_job_template action fails, the rule is not counted as executed.
+* RHEL 9.2 activations cannot connect to the host.
+* Restarting the Event-Driven Ansible server can cause activation states to become stale.
+* Bulk deletion of rulebook activation lists is not consistent, and the deletion can be either successful or unsuccessful.
+* When users access the detail screen of a rule audit, the related rulebook activation link is broken.
+* Long running activations with loads of events can cause an out of disk space issue. Resolved in RPM release 2.4-6.
+* Certain characters, such as hyphen (-), forward slash (/), and period (.), are not supported in the event keys. Resolved in RPM release 2.4-3.
+* When there are more activations than available workers, disabling the activations incorrectly shows them in running state. Resolved in RPM release 2.4-3.
+* Event-Driven Ansible activation pods are running out of memory on RHEL 9. Resolved in RPM release 2.4-3.
+* When all workers are busy with activation processes, other asynchronous tasks are not executed, such as importing projects. Resolved in RPM release 2.4-3.
+
+# Automation hub
+
+Automation hub enables you to discover and use new certified automation content, such as Ansible Collections, from Red Hat Ansible and Certified Partners.
+
+* This release of automation hub provides repository management functionality. With repository management, you can create, edit, delete, and move content between repositories.
+
+* Fixed an issue in the collection keyword search which was returning an incorrect number of results.
+* Added the ability to set OPT_REFERRALS option for LDAP, so that users can now successfully log in to the automation hub by using their LDAP credentials.
+* Fixed an error on the UI when redhat.openshift collection's core dependency was throwing a 404 Not Found error.
+* Fixed an error such that the deprecated execution environments are now skipped while syncing with registry.redhat.io.
+
+# Automation Platform Operator
+
+Ansible Automation Platform Operator provides cloud-native, push-button deployment of new Ansible Automation Platform instances in your OpenShift environment.
+
+* Enabled configuration of resource requirements for automation controller init containers.
+* Added securityContext for Event-Driven Ansible Operator deployments to be Pod Security Admission compliant.
+* Resolved error Controller: Error 413 Entity too large when doing bulk updates.
+* Ansible token is now obfuscated in YAML job details.
+
+# Ansible Automation Platform documentation
+
+Red Hat Ansible Automation Platform 2.4 documentation includes significant feature updates as well as documentation enhancements and offers an improved user experience.
+
+* With the removal of the on-premise component automation services catalog from Ansible Automation Platform 2.4 onwards, all automation services catalog documentation is removed from the Ansible Automation Platform 2.4 documentation.
+* The following documents are created to help you install and use Event-Driven Ansible, the newest capability of Ansible Automation Platform:
+* Getting Started with Event-Driven Ansible
+* Event Driven Ansible User Guide
+
+In addition, sections of the Ansible Automation Platform Planning Guide
+and the Ansible Automation Platform Installation Guide are updated to include instructions for planning and installing Event-Driven Ansible.
+
+* The automation hub documentation has had significant reorganization to combine the content spread across 9 separate documents into the following documents:
+Getting started with automation hub:: Use this guide to perform the initial steps required to use Red Hat automation hub as the default source for Ansible collections content.
+Managing content in automation hub:: Use this guide to understand how to create and manage collections, content and repositories in automation hub.
+Red Hat Ansible Automation Platform Installation Guide:: Use this guide to learn how to install Ansible Automation Platform based on supported installation scenarios.
+* The Managing Red Hat Certified and Ansible Galaxy collections in automation hub guide has been moved to the Red Hat Certified, validated, and Ansible Galaxy content in automation hub topic in the Managing content in automation hub guide.
+* The Ansible Automation Platform 2.4 Release Notes are restructured to improve the experience for our customers and the Ansible Community. Users can now view the latest updates based on the Ansible Automation Platform versions, instead of their release timeline.
+* The topic Repository management with automation hub is created to help you create and manage custom repositories in automation hub. This topic is found in the Managing content in automation hub guide.

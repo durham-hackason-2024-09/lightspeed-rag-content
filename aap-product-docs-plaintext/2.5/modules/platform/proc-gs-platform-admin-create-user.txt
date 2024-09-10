@@ -1,0 +1,28 @@
+# Creating a user
+
+You can assign two types of users:
+
+Normal user:: Normal users have read and write access limited to the resources (such as inventory, projects, and job templates) for which that user has been granted the appropriate roles and privileges.
+System administrator:: A System administrator (also known as a Superuser) has full system administration privileges — with full read and write privileges over the entire installation. A System administrator is typically responsible for managing all aspects of and delegating responsibilities for day-to-day work to various users.
+Select the Organization to be assigned for this user.
+
+1. From the navigation panel, select menu:Access Management[Users].
+2. Click btn:[Create user].
+3. Enter the details about your new user in the fields on the Create user page.
+Fields marked with an asterisk (*) are required.
+
+[NOTE]
+----
+If you are modifying your own password, log out and log back in again for it to take effect.
+----
+4. Click btn:[Create user].
+
+When the user is successfully created, the User dialog opens.
+From here, you can review and change the user&#8217;s Teams, Roles, Tokens and other membership details.
+
+[NOTE]
+----
+If the user is not newly-created, the details screen displays the last login activity of that user.
+----
+
+If you log in as yourself, and view the details of your user profile, you can manage tokens from your user profile by selecting the Tokens tab.

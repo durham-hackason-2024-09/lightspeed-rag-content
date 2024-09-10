@@ -1,0 +1,29 @@
+# Creating an automation decision project
+
+Like automation execution projects, automation decision projects are logical collections of automation decision content.
+You can use the project function to organize your automation decision content in a way that makes sense to you.
+
+* You are logged in to the Event-Driven Ansible controller Dashboard as a Content Consumer.
+* You have set up a credential, if necessary.
+For more information, see the [ADD 2.5 LINK][Setting up credentials] section.
+* You have an existing repository containing rulebooks that are integrated with playbooks contained in a repository to be used by automation controller.
+
+1. Log in to the Event-Driven Ansible controller Dashboard.
+2. From the navigation panel, select menu:Automation Decisions[Projects].
+3. Insert the following:
+Name:: Enter project name.
+Description:: This field is optional.
+SCM type:: Git is the only SCM type available for use.
+SCM URL:: HTTP[S] protocol address of a repository, such as GitHub or GitLab.
+
+[NOTE]
+----
+You cannot edit the SCM URL after you create the project.
+----
+Credential:: This field is optional. This is the token needed to use the SCM URL.
+4. Select btn:[Create project].
+
+Your project is now created and can be managed in the Projects screen.
+
+After saving the new project, the project&#8217;s details page is displayed.
+From there or the Projects list view, you can edit or delete it.

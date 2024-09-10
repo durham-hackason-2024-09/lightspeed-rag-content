@@ -1,0 +1,15 @@
+# Providing access to your container repository
+
+Provide access to your container repository for users who need to work with the images.
+Adding a group allows you to modify the permissions the group can have to the container repository.
+You can use this option to extend or restrict permissions based on what the group is assigned.
+
+* You have change container namespace permissions.
+
+1. Log in to automation hub.
+2. From the navigation panel, select menu:Automation Content[Execution Environments].
+3. Select your container repository.
+4. From the Access tab, click btn:[Select a group].
+5. Select the group or groups to which you want to grant access and click btn:[Next].
+6. Select the roles that you want to add to this execution environment and click btn:[Next].
+7. Click btn:[Add].

@@ -1,0 +1,18 @@
+# Running the Red Hat Ansible Automation Platform installer setup script
+
+After you update the inventory file with required parameters, run the installer setup script.
+
+
+[IMPORTANT]
+----
+You must have installed ansible-core 2.16 before using the installer setup script.
+----
+
+* Run the setup.sh script
+
+```
+$ sudo ./setup.sh
+```
+
+
+Installation of Red Hat Ansible Automation Platform will begin.

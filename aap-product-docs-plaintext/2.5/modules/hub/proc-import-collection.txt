@@ -1,0 +1,19 @@
+# Importing an automation content collection in automation hub
+
+As an automation content creator, you can import a collection to use in a custom repository. To use a collection in your custom repository, you must first import the collection into your namespace so the automation hub administrator can approve it.
+
+1. Log in to automation hub.
+2. From the navigation panel, select menu:Automation Content[Namespaces]. The Namespaces page displays all of the namespaces available.
+3. Click btn:[View Collections].
+4. Click btn:[Upload Collection].
+5. Navigate to the collection tarball file, select the file and click btn:[Open].
+6. Click btn:[Upload].
+
+The My Imports screen displays a summary of tests and notifies you if the collection upload is successful or has failed.
+
+[NOTE]
+----
+If the collection is not approved, it is not displayed in the published repository.
+----
+
+* See Approval pipeline for more information about collection and repository approvals.

@@ -1,0 +1,3 @@
+# Operator supported topologies
+
+The Ansible Automation Platform Operator uses Red Hat OpenShift operators to deploy Ansible Automation Platform within Red Hat OpenShift. Customers manage the product and infrastructure lifecycle.

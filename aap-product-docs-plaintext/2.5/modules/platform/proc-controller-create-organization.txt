@@ -1,0 +1,25 @@
+# Creating an organization
+
+Ansible Automation Platform automatically creates a default organization. If you have a self-support level license, you have only the default organization available and can not delete it.
+You can use the default organization as it is initially set up and edit it later.
+
+1. From the navigation panel, select menu:Access Management[Organizations].
+2. Click btn:[Create organization].
+3. Enter the Name and optionally provide a Description for your organization.
+
+[NOTE]
+----
+If automation controller is enabled on the platform, continue with Step 4. Otherwise, proceed to Step 7.
+----
+4. Enter the name of the Instance Groups on which to run this organization.
+5. Select the name of the Default execution environment or search for one that exists on which to run this organization.
+6. Optional: Enter the Galaxy credentials or search from a list of existing ones.
+7. Click btn:[Next].
+8. You can manage the instance group order by dragging and dropping the instance group up or down in the list.
+
+[NOTE]
+----
+The execution precedence is determined by the order in which the instance groups are listed.
+----
+9. Click btn:[Next] and verify the organization settings.
+10. Click btn:[Finish].

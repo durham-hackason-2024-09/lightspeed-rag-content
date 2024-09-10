@@ -1,0 +1,7 @@
+# Single-node Redis
+
+Single-node Redis consists of a simple architecture that is easy to deploy and configure.
+
+![Single-node Redis deployment]
+
+If a resilient solution is not a requirement, deploy Ansible Automation Platform with a single-node Redis.

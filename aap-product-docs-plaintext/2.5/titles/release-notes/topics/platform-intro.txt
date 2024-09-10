@@ -1,0 +1,21 @@
+# Overview of Red Hat Ansible Automation Platform
+
+Red Hat Ansible Automation Platform simplifies the development and operation of automation workloads for managing enterprise application infrastructure lifecycles.
+Ansible Automation Platform works across multiple IT domains including operations, networking, security, and development, as well as across diverse hybrid environments.
+Simple to adopt, use, and understand, Ansible Automation Platform provides the tools needed to rapidly implement enterprise-wide automation, no matter where you are in your automation journey.
+
+# What is included in Ansible Automation Platform
+
+
+
+# Red Hat Ansible Automation Platform life cycle
+
+Red Hat provides different levels of maintenance for each Ansible Automation Platform release. For more information, see Red Hat Ansible Automation Platform Life Cycle.
+
+# Upgrading Ansible Automation Platform
+
+When upgrading, do not use yum update. Use the installation program instead. The installation program performs all of the necessary actions required to upgrade to the latest versions of Ansible Automation Platform, including automation controller and private automation hub.
+
+* For information about the components included in Ansible Automation Platform, see the table in What is included in Ansible Automation Platform.
+* For more information about upgrading Ansible Automation Platform, see Red Hat Ansible Automation Platform upgrade and migration guide.
+* For procedures related to using the Ansible Automation Platform installer, see Ansible Automation Platform installation guide.

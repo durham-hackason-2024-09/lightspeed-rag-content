@@ -1,0 +1,3 @@
+# Uploading a collection to automation hub
+
+If you want to share a collection that you have created with the rest of the Ansible community, you can upload it to automation hub.

@@ -1,0 +1,3 @@
+# Configuring token-based authentication
+
+[TBD] The content for this is in progress in separate Applications and Token-based authentication drafts. Once converted/updated in AsciiDoc and in the repo, update this section to include those modules.

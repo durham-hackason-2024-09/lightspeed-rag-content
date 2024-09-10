@@ -1,0 +1,23 @@
+# Working with execution environments
+
+You can view the automation execution environments provided by Red Hat in the
+Red Hat Ecosystem Catalog.
+
+Click on an execution environment for information on how to download it.
+
+For example, to download the minimal RHEL 8 base image, run the following command:
+
+
+```
+$ podman pull registry.redhat.io/ansible-automation-platform-25/ee-minimal-rhel9
+```
+
+
+You can build and create custom execution environments with ansible-builder.
+For more information about working with execution environments locally, see
+Creating and consuming execution environments.
+
+After customizing your execution environment, you can push your new image to the container registry in automation hub. See
+Publishing an automation execution environment
+in the Creating and consuming execution environments documentation.
+Creating and consuming execution environments.

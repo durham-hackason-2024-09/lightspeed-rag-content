@@ -1,0 +1,22 @@
+# Ansible Automation Platform installation on disconnected RHEL
+
+You can install Ansible Automation Platform automation controller and private automation hub without an internet connection by using the installer-managed database located on the automation controller. Use the setup bundle for a disconnected installation as it includes additional components that make installing Ansible Automation Platform easier in a disconnected environment. These include the Ansible Automation Platform Red Hat package managers (RPMs) and the default execution environment (EE) images.
+
+# System requirements for disconnected installation
+
+Ensure that your system has all the hardware requirements before performing a disconnected installation of Ansible Automation Platform. For more information about hardware requirements, see Chapter 2. System requirements.
+
+# RPM Source
+
+RPM dependencies for Ansible Automation Platform that come from the BaseOS and AppStream repositories are not included in the setup bundle. To add these dependencies, you must first obtain access to BaseOS and AppStream repositories. Use Satellite to sync repositories and add dependencies. If you prefer an alternative tool, you can choose between the following options:
+
+* Reposync
+* The RHEL Binary DVD
+
+
+[NOTE]
+----
+The RHEL Binary DVD method requires the DVD for supported versions of RHEL, including version 8.6 or higher. See Red Hat Enterprise Linux Life Cycle for information about which versions of RHEL are currently supported.
+----
+
+* Satellite

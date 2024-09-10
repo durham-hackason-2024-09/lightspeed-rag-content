@@ -1,0 +1,34 @@
+# Configuring user access for container repositories in private automation hub
+
+To determine who can access and manage images in your Ansible Automation Platform, you must configure user access for container repositories in your private automation hub.
+
+# Container registry group permissions
+
+You can control how users can interact with containers managed in private automation hub.
+Use the following list of permissions to create groups with the right privileges for your container registries.
+
+
+
+# Creating a new group in private automation hub
+
+You can create and assign permissions to a group in private automation hub that enables users to access specified features in the system.
+By default, the Admin group in the automation hub has all permissions assigned and is available on initial login. Use the credentials created when installing private automation hub.
+
+For more information, see Creating a new group in private automation hub in the Getting started with automation hub guide.
+
+# Assigning permissions to groups
+
+By default, new groups do not have any assigned permissions.
+You can assign permissions to groups in private automation hub that enable users to access specific features in the system.
+
+You can add permissions when first creating a group or edit an existing group to add or remove permissions
+
+For more information, see Assigning permissions to groups in the Getting started with automation hub guide.
+
+* See Container registry group permissions to learn more about specific permissions.
+
+# Adding users to existing groups
+
+You can add users to groups when you create a group. But, you can also manually add users to existing groups.
+
+For more information, see Adding users to existing groups in the Getting started with automation hub guide.

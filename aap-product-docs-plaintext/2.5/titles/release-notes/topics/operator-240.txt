@@ -1,0 +1,8 @@
+# Automation Platform Operator
+
+Ansible Automation Platform Operator provides cloud-native, push-button deployment of new Ansible Automation Platform instances in your OpenShift environment.
+
+* Enabled configuration of resource requirements for automation controller init containers.
+* Added securityContext for Event-Driven Ansible Operator deployments to be Pod Security Admission compliant.
+* Resolved error Controller: Error 413 Entity too large when doing bulk updates.
+* Ansible token is now obfuscated in YAML job details.

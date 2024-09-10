@@ -1,0 +1,13 @@
+# Providing access to a custom automation hub repository
+
+By default, private repositories and the automation content collections are hidden from all users in the system. Public repositories can be viewed by all users, but cannot be modified. Use this procedure to provide access to your custom repository.
+
+1. Log in to private automation hub.
+2. From the navigation panel, select menu:MenuTopAC[Repositories].
+3. Locate your repository in the list and click the btn:[More Actions] icon &#8942;, then select Edit.
+4. Select the Access tab.
+5. Select a group for Repository owners.
+
+See Configuring user access for your private automation hub for information about implementing user access.
+6. Select the roles you want assigned to the selected group.
+7. Click btn:[Save].

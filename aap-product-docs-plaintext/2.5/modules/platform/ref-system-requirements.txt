@@ -1,0 +1,29 @@
+# Red Hat Ansible Automation Platform system requirements
+
+Your system must meet the following minimum system requirements to install and run Red Hat Ansible Automation Platform.
+
+
+
+The following are necessary for you to work with project updates and collections:
+
+* Ensure that the network ports and protocols listed in Table 5.3. Automation Hub are available for successful connection and download of collections from automation hub or Ansible Galaxy server.
+* Disable SSL inspection either when using self-signed certificates or for the Red Hat domains.
+
+
+[NOTE]
+----
+The requirements for systems managed by Ansible Automation Platform are the same as for Ansible.
+See Installing Ansible in the Ansible Community Documentation.
+----
+
+* Red Hat Ansible Automation Platform depends on Ansible Playbooks and requires the installation of the latest stable version of ansible-core. You can download ansible-core manually or download it automatically as part of your installation of Red Hat Ansible Automation Platform.
+* For new installations, automation controller installs the latest release package of ansible-core.
+* If performing a bundled Ansible Automation Platform installation, the installation setup.sh script attempts to install ansible-core (and its dependencies) from the bundle for you.
+* If you have installed Ansible manually, the Ansible Automation Platform installation setup.sh script detects that Ansible has been installed and does not attempt to reinstall it.
+
+
+[NOTE]
+----
+You must install Ansible using a package manager such as dnf, and the latest stable version of the package manager must be installed for Red Hat Ansible Automation Platform to work properly.
+Ansible-core version 2.15 is required for versions 2.5 and later.
+----

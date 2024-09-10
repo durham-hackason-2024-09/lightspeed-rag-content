@@ -1,0 +1,12 @@
+# Running your playbook in Ansible Automation Platform
+
+To run your playbook in Ansible Automation Platform, you must create a project in automation controller for the repository where you stored your playbook project.
+You can then create a job template for each playbook from the project.
+
+1. In a browser, log in to automation controller.
+2. Configure a Source Control credential type for your source control system if necessary. See the Creating new credentials section of the Automation controller user guide for more details.
+3. In automation controller, create a project for the GitHub repository where you stored your playbook project.
+Refer to the Projects chapter of the Automation controller user guide.
+4. Create a job template that uses a playbook from the project that you created.
+Refer to the Job Templates chapter of the Automation controller user guide.
+5. Run your playbook from automation controller by launching the job template. Refer to the Launching a job template section of the Automation controller user guide.

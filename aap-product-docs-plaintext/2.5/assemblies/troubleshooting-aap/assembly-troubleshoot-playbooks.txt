@@ -1,0 +1,3 @@
+# Playbooks
+
+You can use automation content navigator to interactively troubleshoot your playbook. For more information about troubleshooting a playbook with automation content navigator, see Troubleshooting Ansible content with automation content navigator in the Automation Content Navigator Creator Guide.

@@ -1,0 +1,6 @@
+# Getting started with OAuth Applications
+
+From the navigation panel, select menu:Access Management[OAuth Applications].
+The OAuth Applications page displays a searchable list of all available applications currently managed by Ansible Automation Platform and can that you can sort by Name.
+
+If no applications exist, you are requested to create applications.

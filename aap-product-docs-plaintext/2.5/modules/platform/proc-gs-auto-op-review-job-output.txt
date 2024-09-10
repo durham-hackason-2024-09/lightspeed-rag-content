@@ -1,0 +1,5 @@
+# Reviewing a job output
+
+When you relaunch a job, the jobs Output view is displayed.
+
+1. From the navigation panel, select menu:Automation Execution[Jobs].

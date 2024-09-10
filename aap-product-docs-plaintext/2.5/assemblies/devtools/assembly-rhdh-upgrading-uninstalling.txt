@@ -1,0 +1,3 @@
+# Upgrading and uninstalling Ansible plug-ins for Red Hat Developer Hub
+
+Ansible plug-ins for Red Hat Developer Hub Upgrading and uninstalling placeholder

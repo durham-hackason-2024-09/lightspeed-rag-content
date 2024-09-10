@@ -1,0 +1,17 @@
+# Adding subscriptions to a subscription allocation
+
+Once an allocation is created, you can add the subscriptions you need for Ansible Automation Platform to run properly. This step is necessary before you can download the manifest and add it to Ansible Automation Platform.
+
+1. From the Subscription Allocations page, click on the name of the Subscription Allocation to which you would like to add a subscription.
+2. Click the Subscriptions tab.
+3. Click btn:[Add Subscriptions].
+4. Enter the number of Ansible Automation Platform Entitlement(s) you plan to add.
+5. Click btn:[Submit].
+
+After your subscription has been accepted, subscription details are displayed. A status of Compliant indicates your subscription is in compliance with the number of hosts you have automated within your subscription count. Otherwise, your status will show as Out of Compliance, indicating you have exceeded the number of hosts in your subscription.
+
+Other important information displayed include the following:
+
+Hosts automated:: Host count automated by the job, which consumes the license count
+Hosts imported:: Host count considering all inventory sources (does not impact hosts remaining)
+Hosts remaining:: Total host count minus hosts automated

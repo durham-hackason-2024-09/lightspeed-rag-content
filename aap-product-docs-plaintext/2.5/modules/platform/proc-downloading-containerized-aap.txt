@@ -1,0 +1,17 @@
+# Downloading Ansible Automation Platform
+
+1. Download the latest installer .tar file from the Ansible Automation Platform download page.
+2. Copy the installer .tar file and the optional manifest .zip file onto your Red Hat Enterprise Linux host.
+3. Decide where you want the installer to reside on the file system. Installation related files are created under this location and require at least 10 GB for the initial installation.
+4. Unpack the installer .tar file into your installation directory, and go to the unpacked directory.
+1. For the online installer:
+
+```
+$ tar xfvz ansible-automation-platform-containerized-setup-<version>.tar.gz
+```
+
+2. For the bundled installer:
+
+```
+$ tar xfvz ansible-automation-platform-containerized-setup-bundle-<version>-<arch_name>.tar.gz
+```

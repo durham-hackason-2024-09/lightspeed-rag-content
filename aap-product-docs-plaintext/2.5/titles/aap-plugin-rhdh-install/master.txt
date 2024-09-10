@@ -1,0 +1,30 @@
+# Installing Ansible plug-ins for Red Hat Developer Hub
+
+Thank you for your interest in Red Hat Ansible Automation Platform. Ansible Automation Platform is a commercial offering that helps teams manage complex multi-tier deployments by adding control, knowledge, and delegation to Ansible-powered environments.
+This guide describes how to install Ansible plug-ins for Red Hat Developer Hub.
+This document has been updated to include information for the latest release of Ansible Automation Platform.
+
+# Providing feedback on Red Hat documentation
+
+If you have a suggestion to improve this documentation, or find an error, you can contact technical support at https://access.redhat.com to open a request.
+
+# Ansible plug-ins for Red Hat Developer Hub
+
+Ansible plug-ins for Red Hat Developer Hub introduction placeholder
+
+# Planning Ansible plug-ins for Red Hat Developer Hub
+
+Ansible plug-ins for Red Hat Developer Hub planning placeholder
+
+# Installing Ansible plug-ins for Red Hat Developer Hub
+
+Ansible plug-ins for Red Hat Developer Hub (ansible-dev-tools) is a suite of tools provided with Ansible Automation Platform to help automation creators to
+create, test, and deploy playbook projects, execution environments, and collections.
+
+# Upgrading and uninstalling Ansible plug-ins for Red Hat Developer Hub
+
+Ansible plug-ins for Red Hat Developer Hub Upgrading and uninstalling placeholder
+
+# Configuring Ansible plug-ins for Red Hat Developer Hub
+
+Ansible plug-ins for Red Hat Developer Hub Configuration

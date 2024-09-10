@@ -1,0 +1,18 @@
+# Using content signing services in private automation hub
+
+After you have configured content signing on your private automation hub, you can manually sign a new collection or replace an existing signature with a new one.
+When users download a specific collection, this signature indicates that the collection is for them and has not been modified after certification.
+
+You can use content signing on private automation hub in the following scenarios:
+
+* Your system does not have automatic signing configured and you must use a manual signing process to sign collections.
+* The current signatures on the automatically configured collections are corrupted and need new signatures.
+* You need additional signatures for previously signed content.
+* You want to rotate signatures on your collections.
+
+1. Log in to your Ansible Automation Platform.
+2. From the navigation panel, select menu:Automation Content[Collection Approvals].
+The Approval dashboard opens and displays a list of collections.
+3. Click btn:[Sign and approve] for each collection that you want to sign.
+
+* Verify that the collections you signed and manually approved are displayed in the Collections tab.

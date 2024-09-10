@@ -1,0 +1,30 @@
+# Container enterprise topology
+
+The enterprise topology is intended for organizations that require Ansible Automation Platform to be deployed with redundancy or higher compute for large volumes of automation.
+
+# Infrastructure topology
+
+Each VM has been tested with the following component requirements: 16 GB RAM, 4 CPU, 60 GB local disk, and 3000 IOPS.
+
+
+
+# Tested system configurations
+
+Red Hat has tested the following configurations to install and run Red Hat Ansible Automation Platform:
+
+
+
+# Network ports
+
+Red Hat Ansible Automation Platform uses several ports to communicate with its services. These ports must be open and available for incoming connections to the Red Hat Ansible Automation Platform server in order for it to work. Ensure that these ports are available and are not blocked by the server firewall.
+
+
+
+# Storage requirements
+
+* Execution environments are pulled into automation controller hybrid nodes and execution nodes that run jobs. The size of these containers influences the storage requirements for $PATH_WHERE_PODMAN_PUTS_CONTAINER_IMAGES.
+* The primary determining factors for the size of the database and its storage volume, which defaults to $POSTGRES_DEFAULT_DATA_DIR, are:
+* The quantity of job events (lines of output from automation controller jobs)
+* The quantity of days of job data that are retained
+* On execution nodes and automation controller control and hybrid nodes, job output is buffered to the disk in $NAME_OF_RECEPTOR_DIR_VAR, which defaults to /tmp.
+* The size and quantity of collections synced to automation hub influence the storage requirements of $PATH_WHERE_PULP_STORES_COLLECTIONS.

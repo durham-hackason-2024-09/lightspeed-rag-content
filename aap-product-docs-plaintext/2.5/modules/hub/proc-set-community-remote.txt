@@ -1,0 +1,31 @@
+# Configuring the community remote repository and syncing Ansible Galaxy collections
+
+You can edit the community remote repository to synchronize chosen collections from Ansible Galaxy to your private automation hub.
+By default, your private automation hub community repository directs to galaxy.ansible.com/api/.
+
+* You have Modify Ansible repo content permissions.
+For more information on permissions, see Configuring user access for your private automation hub.
+* You have a requirements.yml file that identifies those collections to synchronize from Ansible Galaxy as in the following example:
+Requirements.yml example
+
+```
+collections:
+  # Install a collection from Ansible Galaxy.
+  - name: community.aws
+    version: 5.2.0
+    source: https://galaxy.ansible.com
+```
+
+
+1. Log in to automation hub.
+2. From the navigation panel, select menu:Automation Content[Remotes].
+3. In the Community remote, click the btn:[More Actions] icon &#8942; and select Edit.
+4. In the YAML requirements field, click btn:[Browse] and locate the requirements.yml file on your local machine.
+5. Click btn:[Save].
+
+You can now synchronize collections identified in your requirements.yml file from Ansible Galaxy to your private automation hub.
+6. Click the btn:[More Actions] icon &#8942; and select Sync to sync collections from Ansible Galaxy and Ansible automation hub.
+
+The Sync status notification updates to notify you of completion or failure of Ansible Galaxy collections synchronization to your Ansible automation hub.
+
+* Select Community from the collections content drop-down list to confirm successful synchronization.

@@ -1,0 +1,36 @@
+# Adding tokens
+
+You can view a list of users that have tokens to access an application by selecting the Tokens tab in the applications Details page.
+
+Configure authentication tokens for your users.
+You can select the application to which the token is associated and the level of access that the token has.
+
+
+[IMPORTANT]
+----
+You can only create OAuth 2 Tokens for your user through the API or UI, which means you can only access your own user profile to configure or view your tokens.
+----
+
+1. From the navigation panel, select menu:Access Management[Users].
+2. Select the user for which you want to configure the OAuth 2 tokens.
+3. Select the Tokens tab on the user's profile.
+
+When no tokens are present, the Tokens screen prompts you to add them.
+4. Click btn:[Create token] to open the Create Token window.
+5. Enter the following details:
+* Application: enter the name of the application with which you want to associate your token.
+You can also search for it by clicking the  icon.
+This opens a separate window that enables you to choose from the available options.
+Use the Search bar to filter by name if the list is extensive.
+Leave this field blank if you want to create a Personal Access Token (PAT) that is not linked to any application.
+* Optional: Description: give a short description for your token.
+* Scope (required): specify the level of access you want this token to have.
+6. Click btn:[Create token], or click btn:[Cancel] to abandon your changes.
+
+After you save the token, the newly created token for the user is displayed with the token information and when it expires.
+7. To view the application to which the token is associated and the token expiration date, go to the token list view.
+
+To verify that the application now shows the user with the appropriate token, open the Tokens tab of the Applications window.
+
+If you are a system administrator and have to create or remove tokens for other users, see the revoke and create commands in the
+Token and session management section of the Configuring automation execution.

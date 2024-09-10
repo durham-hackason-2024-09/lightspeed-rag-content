@@ -1,0 +1,552 @@
+# Ansible Automation Platform containerized installation
+
+Ansible Automation Platform is a commercial offering that helps teams manage complex multi-tier deployments by adding control, knowledge, and delegation to Ansible-powered environments.
+This guide helps you to understand the installation requirements and processes behind the containerized version of Ansible Automation Platform.
+
+[NOTE]
+----
+Upgrades from 2.4 Containerized Ansible Automation Platform Tech Preview to 2.5 Containerized Ansible Automation Platform are unsupported at this time.
+----
+* A Red Hat Enterprise Linux (RHEL) 9.2 based host. Minimal operating system (OS) base install is recommended.
+* A non-root user for the Red Hat Enterprise Linux host, with sudo or other Ansible supported privilege escalation (sudo recommended). This user is responsible for the installation of containerized Ansible Automation Platform.
+* It is recommended that you set up SSH public key authentication for the non-root user. For guidelines on setting up SSH public key authentication for the non-root user, see How to configure SSH public key authentication for passwordless login.
+* SSH keys are only required when installing on remote hosts. If doing a self contained local VM based installation, you can use ansible_connection: local.
+* Internet access from the Red Hat Enterprise Linux host if you are using the default online installation method.
+* The appropriate network ports are open if a firewall is in place. For more information about the ports to open, see Container supported topologies in Supported deployment models for Ansible Automation Platform.
+
+# Supported deployment topologies
+
+Red Hat tests Ansible Automation Platform 2.5 with a defined set of topologies to provide you with opinionated deployment options. The supported topologies include infrastructure topology, tested system configurations, example inventory files, and network ports information.
+
+For more information about the supported topologies for containerized Ansible Automation Platform, see Container supported topologies in Supported deployment models for Ansible Automation Platform.
+
+# System requirements
+
+Each virtual machine (VM) has the following system requirements:
+
+
+
+# Preparing the RHEL host for containerized installation
+
+Containerized Ansible Automation Platform runs the component services as Podman based containers on top of a RHEL host. The installer takes care of this once the underlying host has been prepared.
+
+Use the following instructions to prepare the RHEL host:
+
+1. Log in to the RHEL host as your non-root user.
+2. Register your RHEL host with subscription-manager:
+
+```
+sudo subscription-manager register
+```
+
+3. Run sudo dnf repolist to validate that only the BaseOS and AppStream repositories are setup and enabled on the host:
+
+```
+$ sudo dnf repolist
+Updating Subscription Management repositories.
+repo id                                                    repo name
+rhel-9-for-x86_64-appstream-rpms                           Red Hat Enterprise Linux 9 for x86_64 - AppStream (RPMs)
+rhel-9-for-x86_64-baseos-rpms                              Red Hat Enterprise Linux 9 for x86_64 - BaseOS (RPMs)
+```
+
+4. Ensure that only these repositories are available to the RHEL host. For more information about managing custom repositories, see:
+Chapter 10. Managing custom software repositories.
+5. Ensure that the host has DNS configured and can resolve host names and IP addresses by using a fully qualified domain name (FQDN). This is essential to ensure services can talk to one another.
+6. Optional: To have the installer automatically pick up and apply your Ansible Automation Platform subscription manifest license, follow the steps in Chapter 2. Obtaining a manifest file.
+
+* For more information about registering your RHEL system, see Getting Started with RHEL System Registration.
+* For information about configuring unbound DNS, see Chapter 2. Setting up an unbound DNS server.
+* For information about configuring DNS using BIND, see Chapter 1. Setting up and configuring a BIND DNS server.
+
+# Installing ansible-core on the RHEL host
+
+1. From your RHEL host, install ansible-core:
+
+```
+sudo dnf install -y ansible-core
+```
+
+2. Optionally, you can install additional utilities that can be useful for troubleshooting purposes, for example wget, git, rsync, and vim:
+
+```
+sudo dnf install -y wget git rsync vim
+```
+
+3. Set a hostname that is a fully qualified domain name (FQDN):
+
+```
+sudo hostnamectl set-hostname <your_hostname>
+```
+
+
+# Downloading Ansible Automation Platform
+
+1. Download the latest installer .tar file from the Ansible Automation Platform download page.
+2. Copy the installer .tar file and the optional manifest .zip file onto your Red Hat Enterprise Linux host.
+3. Decide where you want the installer to reside on the file system. Installation related files are created under this location and require at least 10 GB for the initial installation.
+4. Unpack the installer .tar file into your installation directory, and go to the unpacked directory.
+1. For the online installer:
+
+```
+$ tar xfvz ansible-automation-platform-containerized-setup-<version>.tar.gz
+```
+
+2. For the bundled installer:
+
+```
+$ tar xfvz ansible-automation-platform-containerized-setup-bundle-<version>-<arch_name>.tar.gz
+```
+
+
+# Installing containerized Ansible Automation Platform
+
+You can control the installation of Ansible Automation Platform with inventory files. Inventory files define the hosts and containers used and created, variables for components, and other information needed to customize the installation.
+
+You can find example inventory files for containerized Ansible Automation Platform in Container supported topologies in Supported deployment models for Ansible Automation Platform.
+
+Additionally, for convenience, an example inventory file is provided that you can copy and change to quickly get started.
+
+Edit the inventory file by replacing the < > placeholders with your specific variables, and uncommenting any lines specific to your needs. Refer to the README.md file in the installation directory for more information about optional and required variables.
+
+
+```
+# This is the AAP installer inventory file
+# Please consult the docs if you're unsure what to add
+# For all optional variables please consult the included README.md
+
+# This section is for your AAP Controller host(s)
+# -------------------------------------------------
+[automationcontroller]
+fqdn_of_your_rhel_host ansible_connection=local
+
+# This section is for your AAP Automation Hub host(s)
+# -----------------------------------------------------
+[automationhub]
+fqdn_of_your_rhel_host ansible_connection=local
+
+# This section is for your AAP EDA Controller host(s)
+# -----------------------------------------------------
+[automationeda]
+fqdn_of_your_rhel_host ansible_connection=local
+
+# This section is for your AAP Gateway host(s)
+# -----------------------------------------------------
+[automationgateway]
+fqdn_of_your_rhel_host ansible_connection=local
+
+# This section is for your AAP Execution host(s)
+# ------------------------------------------------
+#[execution_nodes]
+#fqdn_of_your_rhel_host
+
+# This section is for the AAP database(s)
+# -----------------------------------------
+# Uncomment the lines below and amend appropriately if you want AAP to install and manage the postgres databases
+# Leave commented out if you intend to use your own external database and just set appropriate _pg_hosts vars
+# see mandatory sections under each AAP component
+#[database]
+#fqdn_of_your_rhel_host ansible_connection=local
+
+[all:vars]
+
+# Common variables needed for installation
+# ----------------------------------------
+postgresql_admin_username=postgres
+postgresql_admin_password=<set your own>
+# If using the online (non-bundled) installer, you need to set RHN registry credentials
+registry_username=<your RHN username>
+registry_password=<your RHN password>
+# If using the bundled installer, you need to alter defaults by using:
+#bundle_install=true
+# The bundle directory must include /bundle in the path
+#bundle_dir=<full path to the bundle directory>
+# To add more decision environment images you need to set the de_extra_images variable
+#de_extra_images=[{'name': 'Custom decision environment', 'image': '<registry>/<namespace>/<image>:<tag>'}]
+# To add more execution environment images you need to set the ee_extra_images variable
+#ee_extra_images=[{'name': 'Custom execution environment', 'image': '<registry>/<namespace>/<image>:<tag>'}]
+# To use custom TLS CA certificate/key you need to set these variables
+#ca_tls_cert=<full path to your TLS CA certificate file>
+#ca_tls_key=<full path to your TLS CA key file>
+
+# AAP Database - optional
+# --------------------------
+# To use custom TLS certificate/key you need to set these variables
+#postgresql_tls_cert=<full path to your TLS certificate file>
+#postgresql_tls_key=<full path to your TLS key file>
+
+# AAP Controller - mandatory
+# --------------------------
+controller_admin_password=<set your own>
+controller_pg_host=fqdn_of_your_rhel_host
+controller_pg_password=<set your own>
+
+# AAP Controller - optional
+# -------------------------
+# To use the postinstall feature you need to set these variables
+#controller_postinstall=true
+#controller_license_file=<full path to your manifest .zip file>
+#controller_postinstall_dir=<full path to your config-as-code directory>
+# When using config-as-code in a git repository
+#controller_postinstall_repo_url=<url to your config-as-code git repository>
+#controller_postinstall_repo_ref=main
+# To use custom TLS certificate/key you need to set these variables
+#controller_tls_cert=<full path to your TLS certificate file>
+#controller_tls_key=<full path to your TLS key file>
+
+# AAP Automation Hub - mandatory
+# ------------------------------
+hub_admin_password=<set your own>
+hub_pg_host=fqdn_of_your_rhel_host
+hub_pg_password=<set your own>
+
+# AAP Automation Hub - optional
+# -----------------------------
+# To use the postinstall feature you need to set these variables
+#hub_postinstall=true
+#hub_postinstall_dir=<full path to your config-as-code directory>
+# When using config-as-code in a git repository
+#hub_postinstall_repo_url=<url to your config-as-code git repository>
+#hub_postinstall_repo_ref=main
+# To customize the number of worker containers
+#hub_workers=2
+# To use the collection signing feature you need to set these variables
+#hub_collection_signing=true
+#hub_collection_signing_key=<full path to your gpg key file>
+# To use the container signing feature you need to set these variables
+#hub_container_signing=true
+#hub_container_signing_key=<full path to your gpg key file>
+# To use custom TLS certificate/key you need to set these variables
+#hub_tls_cert=<full path to your TLS certificate file>
+#hub_tls_key=<full path to your TLS key file>
+
+# AAP EDA Controller - mandatory
+# ------------------------------
+eda_admin_password=<set your own>
+eda_pg_host=fqdn_of_your_rhel_host
+eda_pg_password=<set your own>
+
+# AAP EDA Controller - optional
+# -----------------------------
+# When using an external controller node unmanaged by the installer.
+#controller_main_url=https://fqdn_of_your_rhel_host
+# To customize the number of default/activation worker containers
+#eda_workers=2
+#eda_activation_workers=2
+# To use custom TLS certificate/key you need to set these variables
+#eda_tls_cert=<full path to your TLS certificate file>
+#eda_tls_key=<full path to your TLS key file>
+
+# AAP Gateway - mandatory
+# ------------------------------
+gateway_admin_password=<set your own>
+gateway_pg_host=fqdn_of_your_rhel_host
+gateway_pg_password=<set your own>
+
+# AAP Gateway - optional
+# -----------------------------
+# To use custom TLS certificate/key you need to set these variables
+#gateway_tls_cert=<full path to your TLS certificate file>
+#gateway_tls_key=<full path to your TLS key file>
+
+# AAP Execution Nodes - optional
+# -----------------------------
+#receptor_port=27199
+#receptor_protocol=tcp
+# To use custom TLS certificate/key you need to set these variables
+#receptor_tls_cert=<full path to your TLS certificate file>
+#receptor_tls_key=<full path to your TLS key file>
+# To use custom RSA key pair you need to set these variables
+#receptor_signing_private_key=<full path to your RSA private key file>
+#receptor_signing_public_key=<full path to your RSA public key file>
+```
+
+
+* There is no default database choice in the example inventory file. Follow the instructions in the inventory file to make the appropriate choice between an internally provided Postgres, or provide your own externally managed and supported database option.
+
+To configure a HAProxy load balancer in front of platform gateway with a custom CA cert, set the following inventory file variables under the [all:vars] group:
+
+
+```
+custom_ca_cert=<path_to_cert_crt>
+gateway_main_url=<https://load_balancer_url>
+```
+
+
+
+[NOTE]
+----
+HAProxy SSL passthrough mode is not supported with platform gateway.
+----
+
+Use the following command to install containerized Ansible Automation Platform:
+
+
+```
+ansible-playbook -i inventory ansible.containerized_installer.install
+```
+
+
+* If your privilege escalation requires a password to be entered, append -K to the command line. You are then prompted for the BECOME password.
+* You can use increasing verbosity, up to 4 v's (-vvvv) to see the details of the installation process. However, it is important to note that this can significantly increase installation time, so it is recommended that you use it only as needed or requested by Red Hat support.
+
+# Using the postinstall feature of containerized Ansible Automation Platform
+
+You can use the optional postinstall feature of containerized Ansible Automation Platform to define and load the configuration during the initial installation. This uses a configuration-as-code approach, where you simply define your configuration to be loaded as YAML files.
+
+* An Ansible Automation Platform license for this feature that is on the local filesystem so it can be automatically loaded from the inventory file.
+
+1. The postinstall feature is disabled by default. To use the postinstaller, uncomment the following variables in your inventory file:
+
+```
+controller_postinstall=true
+controller_license_file=<full_path_to_your_manifest_zip_file>
+```
+
+2. You can pull your configuration-as-code from a Git based repository. To do this, set the following variables to dictate where you pull the content from and where to store it for upload to the Ansible Automation Platform controller:
+
+```
+controller_postinstall_repo_url=<url_to_your_config-as-code_git_repository>
+controller_postinstall_dir=<full_path_to_your_config-as-code_directory>
+controller_postinstall_repo_ref=main
+```
+
+3. The controller_postinstall_repo_url variable can define the postinstall repository URL which must include authentication information.
+
+```
+http(s)://<host>/<repo>.git (public repository without HTTP(S) authentication)
+http(s)://<user>:<password>@<host>:<repo>.git (private repository with HTTP(S) authentication)
+git@<host>:<repo>.git (public or private repository with SSH authentication)
+```
+
+
+[NOTE]
+----
+When using SSH based authentication, the installer does not configure anything for you, so you must configure everything on the installer node.
+----
+
+Definition files that are used by Ansible Builder to create automation execution environment images use the infra certified collections. The controller_configuration collection is preinstalled as part of the installation and uses the installation controller credentials you supply in the inventory file for access into the Ansible Automation Platform controller. You simply need to give the YAML configuration files.
+
+You can set up Ansible Automation Platform configuration attributes such as credentials, LDAP settings, users and teams, organizations, projects, inventories and hosts, job and workflow templates.
+
+The following example shows a sample your-config.yml file defining and loading controller job templates. The example demonstrates a simple change to the  example provided with an Ansible Automation Platform installation.
+
+
+```
+/full_path_to_your_configuration_as_code/
+├── controller
+    	└── job_templates.yml
+```
+
+
+
+```
+controller_templates:
+ - name: Demo Job Template
+   execution_environment: Default execution environment
+   instance_groups:
+ 	- default
+   inventory: Demo Inventory
+```
+
+
+# Accessing Ansible Automation Platform
+
+After the installation completes, the default protocol and ports used for Ansible Automation Platform are 80 (HTTP) and 443 (HTTPS).
+
+You can customize the ports with the following variables:
+
+
+```
+gateway_nginx_http_port: 8500
+gateway_nginx_https_port: 8501
+```
+
+
+If you want to disable HTTPS, set gateway_nginx_disable_https to true:
+
+
+```
+gateway_nginx_disable_https: true
+```
+
+
+The platform UI is available by default at:
+
+
+```
+https://<gateway-node>:443
+```
+
+
+Log in as the admin user with the password you created for gateway_admin_password.
+
+# Using custom TLS certificates
+
+By default, the installer generates TLS certificates and keys for all services that are signed by a custom Certificate Authority (CA). You can provide a custom TLS certificate and key for each service. If that certificate is signed by a custom CA, you must provide the CA TLS certificate and key.
+
+* Certificate Authority
+
+
+```
+ca_tls_cert=/full/path/to/tls/certificate
+ca_tls_key=/full/path/to/tls/key
+```
+
+
+* Platform gateway
+
+
+```
+gateway_tls_cert=/full/path/to/tls/certificate
+gateway_tls_key=/full/path/to/tls/key
+```
+
+
+* Automation controller
+
+
+```
+controller_tls_cert=/full/path/to/tls/certificate
+controller_tls_key=/full/path/to/tls/key
+```
+
+
+* Automation hub
+
+
+```
+hub_tls_cert=/full/path/to/tls/certificate
+hub_tls_key=/full/path/to/tls/key
+```
+
+
+* Event-Driven Ansible
+
+
+```
+eda_tls_cert=/full/path/to/tls/certificate
+eda_tls_key=/full/path/to/tls/key
+```
+
+
+* PostgreSQL
+
+
+```
+postgresql_tls_cert=/full/path/to/tls/certificate
+postgresql_tls_key=/full/path/to/tls/key
+```
+
+
+* Receptor
+
+
+```
+receptor_tls_cert=/full/path/to/tls/certificate
+receptor_tls_key=/full/path/to/tls/key
+```
+
+
+# Using custom Receptor signing keys
+
+Receptor signing is enabled by default unless receptor_disable_signing=true is set, and an RSA key pair (public and private) is generated by the installer. However, you can provide custom RSA public and private keys by setting the path variables:
+
+
+```
+receptor_signing_private_key=<full_path_to_private_key>
+receptor_signing_public_key=<full_path_to_public_key>
+```
+
+
+# Enabling Automation hub collection and container signing
+
+Automation hub allows you to sign Ansible collections and container images. This feature is not enabled by default, and you must provide the GPG key.
+
+
+```
+hub_collection_signing=true
+hub_collection_signing_key=<full_path_to_collections_gpg_key>
+hub_container_signing=true
+hub_container_signing_key=<full_path_to_containers_gpg_key>
+```
+
+
+When the GPG key is protected by a passphrase, you must provide the passphrase.
+
+
+```
+hub_collection_signing_pass=<collections_gpg_key_passphrase>
+hub_container_signing_pass=<containers_gpg_key_passphrase>
+```
+
+
+# Adding execution nodes
+
+The containerized installer can deploy remote execution nodes. The execution_nodes group in the inventory file handles this.
+
+
+```
+[execution_nodes]
+<fqdn_of_your_execution_host>
+```
+
+
+An execution node is by default configured as an execution type running on port 27199 (TCP).
+This can be changed by the following variables:
+
+
+```
+receptor_port=27199
+receptor_protocol=tcp
+receptor_type=hop
+```
+
+
+The receptor_type value can be either execution or hop, while the receptor_protocol is either tcp or udp. By default, the nodes in the execution_nodes group are added as peers for the controller node. However, you can change the peers configuration by using the receptor_peers variable.
+
+
+```
+[execution_nodes]
+fqdn_of_your_execution_host
+fqdn_of_your_hop_host receptor_type=hop receptor_peers='["<fqdn_of_your_execution_host>"]'
+```
+
+
+# Uninstalling containerized Ansible Automation Platform
+
+To uninstall a containerized deployment, run the uninstall.yml playbook:
+
+
+```
+$ ansible-playbook -i inventory ansible.containerized_installer.uninstall
+```
+
+
+This stops all systemd units and containers and then delete all resources used by the containerized installer such as:
+
+* config and data directories and files
+* systemd unit files
+* Podman containers and images
+* RPM packages
+
+To keep container images, you can set the container_keep_images variable to true.
+
+
+```
+$ ansible-playbook -i inventory ansible.containerized_installer.uninstall -e container_keep_images=true
+```
+
+
+To keep PostgreSQL databases, you can set the postgresql_keep_databases variable to true.
+
+
+```
+$ ansible-playbook -i inventory ansible.containerized_installer.uninstall -e postgresql_keep_databases=true
+```
+
+
+
+[NOTE]
+----
+Use the Ansible Automation Platform secret key values rather than the auto-generated ones.
+----

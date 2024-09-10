@@ -1,0 +1,5 @@
+# Container registry group permissions
+
+You can control how users can interact with containers managed in private automation hub.
+Use the following list of permissions to create groups with the right privileges for your container registries.
+

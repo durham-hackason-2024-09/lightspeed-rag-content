@@ -1,0 +1,18 @@
+# Manage your private automation hub container registry
+
+Manage container image repositories in your Ansible Automation Platform infrastructure by using the automation hub container registry.
+You can perform the following tasks with Automation hub:
+* Control who can access individual container repositories
+* Change tags on images
+* View activity and image layers
+* Provide additional information related to each container repository
+
+# Container registries
+
+The automation hub container registry is used for storing and managing container images.
+When you have built or sourced a container image, you can push that container image to the registry portion of private automation hub to create a container repository.
+
+* Push a container image to the automation hub container registry.
+* Create a group with access to the container repository in the registry.
+* Add the new group to the container repository.
+* Add a README to the container repository to provide users with information and relevant links.

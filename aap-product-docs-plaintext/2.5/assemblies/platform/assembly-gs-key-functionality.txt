@@ -1,0 +1,152 @@
+# Key functionality and concepts
+
+With Ansible Automation Platform, you can create, manage, and scale automation for your organization across users, teams, and regions.
+See the following functionality and concepts of Ansible Automation Platform for more details.
+
+# Automation execution
+
+The centerpiece of Ansible Automation Platform is its automation execution command and control center, where you can deploy, define, operate, scale and delegate automation across your enterprise.
+With this functionality, you can perform a variety of tasks, such as the ability to run playbooks using a simple, straightforward web UI, dashboards, and centralized logging to manage and track job execution from a single location.
+
+In the automation execution environment, you can use automation controller tasks to build job templates, which standardize how automation is deployed, initiated, and delegated, making it more reusable and consistent.
+
+## Inventory files
+
+An inventory file is a single file with a list of hosts and groups that can be acted on using Ansible commands and playbooks.
+You can use an inventory file to specify your installation scenario and describe host deployments to Ansible.
+You can also use an inventory file to organize managed nodes in centralized files that give Ansible with system information and network locations.
+
+Depending on the inventory plugins, you can use many formats for your inventory files, but the most common formats are INI and YAML.
+The location of your inventory file depends on the installation program you use.
+
+For more details on inventory files, see About the installer inventory in the Red Hat Ansible Automation Platform planning guide.
+
+# Automation content
+
+Automation hub is the central location for your Ansible Automation Platform content.
+In automation hub you can also find content collections that you can download and integrate into your automation environment.
+
+An Ansible Content Collection is a ready-to-use toolkit for automation and can include multiple types of content, including playbooks, roles, modules, and plugins all in one place.
+
+You can access automation hub in one of two ways:
+
+* On the Red Hat-hosted Hybrid Cloud Console, where you can find Red Hat validated or certified content that you can sync to your platform environment.
+* On a self-hosted, on-premise private automation hub, where you can curate content for your automation users and manage access to collections.
+
+Depending on the way you access automation hub, you might have access to different types of content collections.
+
+There are two types of Red Hat Ansible content:
+
+* Ansible Certified Content Collections, which Red Hat builds, supports, and maintains.
+Certified collections are included in your subscription to Red Hat Ansible Automation Platform and you can find in automation hub.
+* Ansible validated content collections, which are customizable and therefore do not have a support guarantee, but have been tested in the Ansible Automation Platform environment.
+Ansible validated collections are available in your private automation hub through the Platform Installer.
+When you download Red Hat Ansible Automation Platform with the bundled installer, validated content is pre-populated into the private automation hub by default, but only if you enable private automation hub as part of the inventory.
+
+## Ansible playbooks
+
+Ansible Content Collections often include playbooks.
+Playbooks are YAML files that contain specific sets of human-readable instructions, or “plays”, that you send to run on a single target or groups of targets.
+Ansible playbooks are repeatable, reusable, configuration management tools designed to deploy complex applications.
+
+You can use playbooks to manage configurations of and deployments to remote machines and sequence multitiered rollouts involving rolling updates.
+Use playbooks to delegate actions to other hosts, interacting with monitoring servers and load balancers along the way.
+
+Once written, you can use and re-use playbooks for automation across your enterprise.
+For example, if you need to run a task more than once, write a playbook and put it under source control.
+Then you can use the playbook to push out new configuration or confirm the configuration of remote systems.
+
+Ansible playbooks can declare configurations, orchestrate steps of any manually ordered process on many machines in a defined order, or start tasks synchronously or asynchronously.
+
+For more information, see Getting started with Ansible Playbooks.
+
+## Ansible roles
+
+Similar to a playbook, use Ansible roles to create reusable automation content that helps teams to work more efficiently and avoid duplicate efforts.
+With roles, you can group together a broader range of existing automation content.
+This includes playbooks, configuration files, templates, tasks, and handlers to create customized automation content that can be reused and shared with others.
+
+You can also make roles configurable by exposing variables that users can set when calling the role, allowing them to configure their system according to their organization&#8217;s requirements.
+
+For more information, see Bundle content with Ansible roles.
+
+# Automation decisions
+
+Red Hat Ansible Automation Platform includes Event-Driven Ansible, an automation engine that listens to your system&#8217;s event stream and reacts to events that you have specified with targeted automation tasks.
+In this way, Event-Driven Ansible manages routine automation tasks and responses, freeing you up to work on more complex tasks.
+
+Managed through Event-Driven Ansible controller, Ansible rulebooks are the framework for automation decisions. Ansible rulebooks are collections of rulesets, which in turn consist of one or more sources, rules, and conditions. Rulebooks tell the system what events to flag and how to respond to them. From the Automation Decisions section of the platform user interface, you can use rulebooks to connect and listen to event sources, and define actions that are triggered in response to certain events.
+
+For more information about rulebook, events, and sources, see Rulebook actions.
+
+# Automation mesh
+
+Automation mesh is an overlay network intended to ease the distribution of automation across a collection of execution nodes using existing connectivity.
+Execution nodes are where Ansible Playbooks are actually executed.
+A node runs an automation execution environment which, in turn, runs the Ansible Playbook.
+Automation mesh creates peer-to-peer connections between these execution nodes, increasing the resiliency of your automation workloads to network latency and connection disruptions.
+This also permits more flexible architectures and provides rapid, independent scaling of control and execution capacity.
+
+# Red Hat Ansible Lightspeed
+
+Red Hat Ansible Lightspeed with IBM watsonx Code Assistant is a generative AI service designed by and for Ansible platform engineers and developers.
+It accepts natural-language prompts entered by a user and then interacts with IBM watsonx foundation models to produce code recommendations built on Ansible best practices.
+
+Red Hat Ansible Lightspeed with IBM watsonx Code Assistant helps automation teams learn, create, and maintain Red Hat Ansible Automation Platform content more efficiently.
+
+# Ansible developer tools
+
+Ansible development tools are an integrated and supported suite of capabilities that help IT practitioners at any skill level accurately create automation content faster than with manual coding.
+This includes building, testing, and deploying modules and playbooks without requiring hard coding skills.
+
+These tools include:
+
+* Ansible Molecule - creates test environments that mimic real ones, allowing you to test playbooks, roles, and collections across many instances, operating systems, virtualization providers, and more.
+* Ansible Lint - analyzes your playbooks, roles, and collections—looking at the markup syntax and how you are using the modules.
+It goes beyond regular YAML linters by checking Ansible tasks themselves.
+* Execution environment builder - removes the risk of dependency issues when creating automation content by installing your collections and all of their dependencies in a containerized image (known as an execution environment).
+* Content testing suite - run checks to enforce coding standards and requirements, unit tests against Ansible modules, and integration tests to ensure workflows connect to your source code repositories.
+* Automation content navigator - reviews and explores collections, configurations, documentation, images, inventories, and playbooks.
+Complete tasks such as watching jobs, sharing playbooks, browsing execution environment and inventories, and extracting reusable examples.
+* Ansible content development kit - is a bundled collection of tools that expands Ansible content creation from IT practitioners performing manual tasks to self-enabled automation content developers.
+
+# Ansible Automation Platform installation and configuration
+
+Red Hat Ansible Automation Platform offers flexible installation and configuration options.
+Depending on your organization&#8217;s needs, you can install Red Hat Ansible Automation Platform using one of the following methods, based on your environment:
+
+* Traditional virtual machine
+* Red Hat Ansible Automation Platform operator on OpenShift Container Platform
+* Cloud environments
+* Containerized environments
+
+# Dashboard components
+
+After you install Ansible Automation Platform on your system and log in for the first time, familiarize yourself with the platform dashboard.
+
+Quick starts:: You can learn about Ansible automation functions with guided tutorials called quick starts.
+In the dashboard, you can access quick starts by selecting a quick start card.
+From the panel displayed, click btn:[Start] and complete the onscreen instructions.
+You can also filter quick starts by keyword and status.
+Resource status:: Indicates the status of your hosts, projects, and inventories.
+The status indicator links to your configured hosts, projects and inventories where you can search, filter, add and change these resources.
+Job Activity:: You can view a summary of your current job status.
+Filter the job status within a period of time or by job type, or click btn:[View all jobs] to view a complete list of jobs that are currently available.
+Jobs:: You can view recent jobs that have run, or click btn:[View all Jobs] to view a complete list of jobs that are currently available, or create a new job.
+Projects:: You can view recently updated projects or click btn:[View all Projects] to view a complete list of the projects that are currently available, or create a new project.
+Inventories:: You can view recently updated inventories or click btn:[View all Inventories] to view a complete list of available inventories, or create a new inventory.
+Rulebook Activations:: You can view the list of recent rulebook activations and their status, display the complete list of rulebook activations that are currently available, or create a new rulebook activation.
+Rule Audit:: You view recently fired rule audits, view rule audit records, and view rule audit data based on corresponding rulebook activation runs.
+Decision Environments:: You can view recently updated decision environments, or click btn:[View all Decision Environments] to view a complete list of available inventories, or create a new decision environment.
+
+# Final setup and usage
+
+After you have installed Ansible Automation Platform 2.5 and have become familiar with the dashboard, use this document to explore further options for setup and daily use.
+This guide is structured so that you can select the path that is most appropriate to you and your role within your organization.
+You can also use the navigation panel to learn how Ansible empowers users with different roles and objectives to build and customize automation tasks.
+
+Select one of the following paths to continue getting started:
+
+* If you are a systems administrator configuring authentication and setting up teams and organizations, see Getting started as a platform administrator.
+* If you are a developer setting up development environments, creating playbooks, rulebooks, roles, or projects, see Getting started as an automation developer.
+* If you are an operator using playbooks, publishing custom content, creating projects, and creating and using inventories, see Getting started as an automation operator.

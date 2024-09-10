@@ -1,0 +1,18 @@
+# Verifying installation of Ansible Automation Platform
+
+Verify that you installed Ansible Automation Platform successfully by logging in with the admin credentials you inserted in the inventory file.
+
+1. Go to the IP address specified for the platform gateway node in the inventory file.
+2. Log in with the user ID admin and the password credentials you set in the inventory file.
+3. Depending on the components you configured as part of your installation, you will see the following in the platform UI:
+1. For automation controller, you will see Automation Execution.
+2. For Event-Driven Ansible, you will see Automation Decisions.
+3. For automation hub, you will see Automation Content.
+
+
+[IMPORTANT]
+----
+If the installation fails and you are a customer who has purchased a valid license for Red Hat Ansible Automation Platform, contact Ansible through the Red Hat Customer portal.
+----
+
+Upon a successful login, your installation of Red Hat Ansible Automation Platform is complete.

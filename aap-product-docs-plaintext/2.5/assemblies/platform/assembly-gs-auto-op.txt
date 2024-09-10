@@ -1,0 +1,196 @@
+# Getting started as an automation operator
+
+As an automation operator, Ansible Automation Platform can help you organize and manage automation projects using Red Hat certified collections or custom content for your organization.
+To get started as a platform operator, see the following sections:
+* Get started with playbooks
+* Publishing to a collection in a source code manager
+* Automation execution projects
+* Build and use an execution environment
+* Job templates
+* About inventories
+* Automation execution jobs
+
+# Get started with playbooks
+
+A playbook runs tasks in order from top to bottom. Within each play, tasks also run in order from top to bottom.
+
+## Learn about playbooks
+
+Playbooks with multiple “plays” can orchestrate multi-machine deployments, running one play on your web servers, another play on your database servers, and a third play on your network infrastructure.
+
+For more information, see [ADD 2.5 LINK]Getting started with Ansible Playbooks.
+
+# Writing a playbook
+
+Create a playbook that pings your hosts and prints a “Hello world” message:
+
+# Bundle content with Ansible roles
+
+A role is like a customized piece of automation content that bundles together relevant bits from automation playbooks to fit your system&#8217;s specific needs. Roles are self-contained and portable, and can include groupings of tasks, variables, configuration templates, handlers, and other supporting files to orchestrate complicated automation flows.
+
+Instead of creating huge playbooks with hundreds of tasks, you can use roles to break the tasks apart into smaller, more discrete units of work.
+
+To learn more about roles, see What is an Ansible Role-and how is it used?.
+
+## Creating a role
+
+You can create roles using the Ansible Galaxy CLI tool, which is included with your Ansible Automation Platform bundle. Access role-specific commands from the roles subcommand:
+
+# Learn about content collections
+
+Ansible content collections are assemblages of automation content.
+
+You can find Ansible Certified Collections in automation hub.
+
+## Browse content
+
+If you are not using the bundle installer, you can use a Red Hat-supplied Ansible Playbook to install validated content. For further information, see Ansible validated content.
+
+You can update validated collections manually by downloading their updated packages in automation hub.
+
+## Downloading content
+
+After collections are finalized, you can import them to a location where they can be distributed to others across your organization.
+
+1. Log in to Red Hat Ansible Automation Platform.
+2. From the navigation panel, select Full Experience.
+The automation hub UI is displayed.
+3. From the navigation panel, select menu:Automation Content[Collections].
+The Collections page displays all collections across all repositories.
+You can search for a specific collection.
+4. Select the collection that you want to export.
+The collection details page opens.
+5. From the Install tab, select Download tarball.
+The .tar file is downloaded to your default browser downloads folder.
+You can now import it to the location of your choosing.
+
+# Publishing to a collection
+
+You can configure your projects to be uploaded to the source control manager of your choice.
+
+## Manage collections in automation hub
+
+As a platform operator, you can use namespaces in automation hub to curate and manage collections for the following purposes:
+
+* Create groups with permissions to curate namespaces and upload collections to private automation hub.
+* Add information and resources to the namespace to help end users of the collection in their automation tasks.
+* Upload collections to the namespace.
+* Review the namespace import logs to decide the success or failure of uploading the collection and its current approval status.
+
+For more information about collections, see ADD 2.5 LINK[Managing collections in automation hub].
+
+## Uploading a collection to automation hub
+
+If you want to share a collection that you have created with the rest of the Ansible community, you can upload it to automation hub.
+
+# Build and use an execution environment
+
+Automation execution environments are consistent and shareable container images that serve as Ansible control nodes.
+Automation execution environments reduce the challenge of sharing Ansible content that has external dependencies.
+If automation content is like a script that a developer has written, an automation execution environment is like a replica of that developer&#8217;s environment, thereby enabling you to reproduce and scale the automation content that the developer has written.
+
+Automation execution environmentss make it easier for you to implement automation in a range of environments.
+
+## Using the base automation execution environment
+
+Your subscription with Ansible Automation Platform gives you access to some base automation execution environments. You can use a base automation execution environment as a starting point for creating a customized automation execution environment.
+
+(ADD CONTENT)
+
+### Customize the base execution environment image
+
+Ansible Automation Platform includes the following default execution environments:
+
+* Minimal - Includes the latest Ansible-core 2.15 release along with Ansible Runner, but does not include collections or other content
+* EE Supported - Minimal, plus all Red Hat-supported collections and dependencies
+
+While these environments cover many automation use cases, you can add additional items to customize these containers for your specific needs. For more information about customizing your execution environment, see Customizing an existing automation execution environment image in the Creating and consuming execution environments guide.
+
+### About Ansible Builder
+
+You also have the option of creating an entirely new execution environment with Ansible Builder.
+Ansible Builder is a command line tool you can use to create an eexecution environment for Ansible.
+You must create execution environment with Ansible Builder.
+
+To build your own execution environment, you must:
+
+* Download Ansible Builder
+* Create a definition file that defines your execution environment
+* Create an execution environment image based on the definition file
+
+For more information about building an execution environment, see [ADD 2.5 LINK]: Creating and consuming execution environments.
+
+## Adding an execution environment to a job template
+
+* An execution environment must have been created using ansible-builder as described in [ADD 2.5 LINK]:Build an execution environment.
+When an execution environment has been created, you can use it to run jobs.
+Use the automation controller UI to specify the execution environment to use in your job templates.
+* Depending on whether an execution environment is made available for global use or tied to an organization, you must have the appropriate level of administrator privileges to use an execution environment in a job.
+Execution environments tied to an organization require Organization administrators to be able to run jobs with those execution environment.
+* Before running a job or job template that uses an execution environment that has a credential assigned to it, ensure that the credential has a username, host, and password.
+
+(ADD CONTENT)
+
+### About container registries
+
+If you have many execution environment that you want to maintain, you can store them in a container registry linked to your private automation hub.
+
+For more information, see [ADD 2.5 LINK]:Populating your private automation hub container registry from the Creating and consuming execution environments guide.
+
+# Automation execution projects
+
+A project is a logical collection of Ansible playbooks, represented in automation controller.
+
+Platform administrators and automation developers have the permissions to create projects.
+As an automation operator you can view and sync projects.
+
+## Executing a project
+
+
+
+# Work with job templates
+
+A job template is a definition and set of parameters for running an Ansible job.
+
+A job template combines an Ansible Playbook from a project and the settings required to launch it. Job templates are useful to run the same job many times. Job templates also encourage the reuse of Ansible Playbook content and collaboration between teams. For more information, see [ADD2.5 LINK][Job Templates] in the Automation controller User Guide.
+
+Platform administrators and automation developers have the permissions to create job templates. As an automation operator you can launch job templates  and view their details.
+
+## Launching a job template
+
+Ansible Automation Platform offers push-button deployment of Ansible playbooks.
+You can configure a template to store all the parameters that you would normally pass to the Ansible playbook on the command line.
+In addition to the playbooks, the template passes the inventory, credentials, extra variables, and all options and settings that you can specify on the command line.
+
+From the navigation panel, select menu:Automation Execution[Templates].
+
+# About inventories
+
+An inventory is a file listing the collection of hosts managed by automation controller.
+Organizations are assigned to inventories, while permissions to launch playbooks against inventories are controlled at the user or team level.
+
+Platform administrators and automation developers have the permissions to create inventories.
+As an automation operator you can view inventories and their details.
+
+## Executing an inventory
+
+1. From the navigation panel, select menu:Automation Execution[Infrastructure > Inventories].
+The Inventories window displays a list of inventories that are currently available, along with the following information:
+
+# Automation execution jobs
+
+A job is an instance of automation controller launching an Ansible Playbook against an inventory of hosts.
+
+## Reviewing a job status
+
+The Jobs list view displays a list of jobs and their statuses, shown as completed successfully, failed, or as an active (running) job.
+
+1. From the navigation panel, select menu:Automation Execution[Jobs].
+
+/ADD CONTENT
+
+## Reviewing a job output
+
+When you relaunch a job, the jobs Output view is displayed.
+
+1. From the navigation panel, select menu:Automation Execution[Jobs].

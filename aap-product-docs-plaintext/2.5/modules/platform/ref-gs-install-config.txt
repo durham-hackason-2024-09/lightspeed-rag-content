@@ -1,0 +1,9 @@
+# Ansible Automation Platform installation and configuration
+
+Red Hat Ansible Automation Platform offers flexible installation and configuration options.
+Depending on your organization&#8217;s needs, you can install Red Hat Ansible Automation Platform using one of the following methods, based on your environment:
+
+* Traditional virtual machine
+* Red Hat Ansible Automation Platform operator on OpenShift Container Platform
+* Cloud environments
+* Containerized environments

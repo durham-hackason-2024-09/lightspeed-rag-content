@@ -1,0 +1,124 @@
+# Supported deployment models for Ansible Automation Platform
+
+# Providing feedback on Red Hat documentation
+
+If you have a suggestion to improve this documentation, or find an error, you can contact technical support at https://access.redhat.com to open a request.
+
+# Overview of supported deployment models
+
+Red Hat tests Ansible Automation Platform 2.5 with a defined set of topologies to give you opinionated deployment options. While it is possible to install the Ansible Automation Platform on different infrastructure topologies and with different environment configurations, Red Hat provides full support for the topologies outlined in this document.
+
+## Installation and deployment models
+
+The following table outlines the different ways to install or deploy Ansible Automation Platform:
+
+
+
+# RPM supported topologies
+
+The RPM installer deploys Ansible Automation Platform on Red Hat Enterprise Linux by using RPMs to install the platform on host machines. Customers manage the product and infrastructure lifecycle.
+
+## RPM enterprise topology
+
+The enterprise topology is intended for organizations that require Ansible Automation Platform to be deployed with redundancy or higher compute for large volumes of automation.
+
+### Infrastructure topology
+
+Each VM has been tested with the following component requirements: 16 GB RAM, 4 CPU, 60 GB local disk, and 3000 IOPS.
+
+
+
+### Tested system configurations
+
+Red Hat has tested the following configurations to install and run Red Hat Ansible Automation Platform:
+
+
+
+### Network ports
+
+Red Hat Ansible Automation Platform uses several ports to communicate with its services. These ports must be open and available for incoming connections to the Red Hat Ansible Automation Platform server in order for it to work. Ensure that these ports are available and are not blocked by the server firewall.
+
+
+
+## RPM mixed enterprise topology
+
+The enterprise topology is intended for organizations that require Ansible Automation Platform to be deployed with redundancy or higher compute for large volumes of automation. The mixed topology has different versions of Ansible Automation Platform intended for configuring a new installation of Event-Driven Ansible controller 1.1 with automation controller 4.4 or 4.5.
+
+### Infrastructure topology
+
+Each VM has been tested with the following component requirements: 16 GB RAM, 4 CPU, 60 GB local disk, and 3000 IOPS.
+
+
+
+### Tested system configurations
+
+Red Hat has tested the following configurations to install and run Red Hat Ansible Automation Platform:
+
+
+
+### Network ports
+
+Red Hat Ansible Automation Platform uses several ports to communicate with its services. These ports must be open and available for incoming connections to the Red Hat Ansible Automation Platform server in order for it to work. Ensure that these ports are available and are not blocked by the server firewall.
+
+
+
+# Container supported topologies
+
+The containerized installer deploys Ansible Automation Platform on Red Hat Enterprise Linux by using Podman which runs the platform in containers on host machines. Customers manage the product and infrastructure lifecycle.
+
+## Container growth topology
+
+The growth topology is intended for organizations that do not require Ansible Automation Platform to be deployed with redundancy or higher compute for large volumes of automation.
+
+### Infrastructure topology
+
+Each VM has been tested with the following component requirements: 16 GB RAM, 4 CPU, 60 GB local disk, and 3000 IOPS. Resources, such as storage, can be increased based on the needs of the deployment.
+
+
+
+### Tested system configurations
+
+Red Hat has tested the following configurations to install and run Red Hat Ansible Automation Platform:
+
+
+
+### Network ports
+
+Red Hat Ansible Automation Platform uses several ports to communicate with its services. These ports must be open and available for incoming connections to the Red Hat Ansible Automation Platform server in order for it to work. Ensure that these ports are available and are not blocked by the server firewall.
+
+
+
+## Container enterprise topology
+
+The enterprise topology is intended for organizations that require Ansible Automation Platform to be deployed with redundancy or higher compute for large volumes of automation.
+
+### Infrastructure topology
+
+Each VM has been tested with the following component requirements: 16 GB RAM, 4 CPU, 60 GB local disk, and 3000 IOPS.
+
+
+
+### Tested system configurations
+
+Red Hat has tested the following configurations to install and run Red Hat Ansible Automation Platform:
+
+
+
+### Network ports
+
+Red Hat Ansible Automation Platform uses several ports to communicate with its services. These ports must be open and available for incoming connections to the Red Hat Ansible Automation Platform server in order for it to work. Ensure that these ports are available and are not blocked by the server firewall.
+
+
+
+### Storage requirements
+
+* Execution environments are pulled into automation controller hybrid nodes and execution nodes that run jobs. The size of these containers influences the storage requirements for $PATH_WHERE_PODMAN_PUTS_CONTAINER_IMAGES.
+* The primary determining factors for the size of the database and its storage volume, which defaults to $POSTGRES_DEFAULT_DATA_DIR, are:
+* The quantity of job events (lines of output from automation controller jobs)
+* The quantity of days of job data that are retained
+* On execution nodes and automation controller control and hybrid nodes, job output is buffered to the disk in $NAME_OF_RECEPTOR_DIR_VAR, which defaults to /tmp.
+* The size and quantity of collections synced to automation hub influence the storage requirements of $PATH_WHERE_PULP_STORES_COLLECTIONS.
+
+# Operator supported topologies
+
+The Ansible Automation Platform Operator uses Red Hat OpenShift operators to deploy Ansible Automation Platform within Red Hat OpenShift. Customers manage the product and infrastructure lifecycle.

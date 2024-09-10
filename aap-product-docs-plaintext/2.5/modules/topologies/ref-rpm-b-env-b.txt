@@ -1,0 +1,20 @@
+# RPM mixed enterprise topology
+
+The enterprise topology is intended for organizations that require Ansible Automation Platform to be deployed with redundancy or higher compute for large volumes of automation. The mixed topology has different versions of Ansible Automation Platform intended for configuring a new installation of Event-Driven Ansible controller 1.1 with automation controller 4.4 or 4.5.
+
+# Infrastructure topology
+
+Each VM has been tested with the following component requirements: 16 GB RAM, 4 CPU, 60 GB local disk, and 3000 IOPS.
+
+
+
+# Tested system configurations
+
+Red Hat has tested the following configurations to install and run Red Hat Ansible Automation Platform:
+
+
+
+# Network ports
+
+Red Hat Ansible Automation Platform uses several ports to communicate with its services. These ports must be open and available for incoming connections to the Red Hat Ansible Automation Platform server in order for it to work. Ensure that these ports are available and are not blocked by the server firewall.
+

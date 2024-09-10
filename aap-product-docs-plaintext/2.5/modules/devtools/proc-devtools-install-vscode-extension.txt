@@ -1,0 +1,21 @@
+# Installing the VS Code Ansible extension
+
+The Ansible extension adds language support for Ansible to VS Code.
+It incorporates Ansible developer tools to facilitate creating and running automation content.
+
+For a full description of the Ansible extension, see the Visual Studio Code Marketplace.
+
+See Learning path - Getting Started with the Ansible VS Code Extension for tutorials on working with the extension.
+
+To install the Ansible VS Code extension:
+
+1. Open VS Code.
+2. Click the Extensions () icon in the Activity Bar, or click menu:View[Extensions], to display the Extensions view.
+3. In the search field in the Extensions view, type Ansible Red Hat.
+4. Select the Ansible extension and click btn:[Install].
+
+When the Ansible extension is enabled, create or open a .yml file in VS Code. It can be an empty file.
+The  language identified for the .yml file is Ansible.
+It is displayed in the Status bar.
+
+When the language for a file is recognized as Ansible, the Ansible extension provides features such as auto-completion, hover, diagnostics, and goto.

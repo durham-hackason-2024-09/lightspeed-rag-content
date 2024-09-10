@@ -1,0 +1,19 @@
+# Ansible Automation Platform documentation
+
+Red Hat Ansible Automation Platform 2.4 documentation includes significant feature updates as well as documentation enhancements and offers an improved user experience.
+
+* With the removal of the on-premise component automation services catalog from Ansible Automation Platform 2.4 onwards, all automation services catalog documentation is removed from the Ansible Automation Platform 2.4 documentation.
+* The following documents are created to help you install and use Event-Driven Ansible, the newest capability of Ansible Automation Platform:
+* Getting Started with Event-Driven Ansible
+* Event Driven Ansible User Guide
+
+In addition, sections of the Ansible Automation Platform Planning Guide
+and the Ansible Automation Platform Installation Guide are updated to include instructions for planning and installing Event-Driven Ansible.
+
+* The automation hub documentation has had significant reorganization to combine the content spread across 9 separate documents into the following documents:
+Getting started with automation hub:: Use this guide to perform the initial steps required to use Red Hat automation hub as the default source for Ansible collections content.
+Managing content in automation hub:: Use this guide to understand how to create and manage collections, content and repositories in automation hub.
+Red Hat Ansible Automation Platform Installation Guide:: Use this guide to learn how to install Ansible Automation Platform based on supported installation scenarios.
+* The Managing Red Hat Certified and Ansible Galaxy collections in automation hub guide has been moved to the Red Hat Certified, validated, and Ansible Galaxy content in automation hub topic in the Managing content in automation hub guide.
+* The Ansible Automation Platform 2.4 Release Notes are restructured to improve the experience for our customers and the Ansible Community. Users can now view the latest updates based on the Ansible Automation Platform versions, instead of their release timeline.
+* The topic Repository management with automation hub is created to help you create and manage custom repositories in automation hub. This topic is found in the Managing content in automation hub guide.

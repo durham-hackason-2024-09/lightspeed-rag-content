@@ -1,0 +1,13 @@
+# Pulling an image
+
+You can pull images from the automation hub container registry to make a copy to your local machine.
+
+* You must have permission to view and pull from a private container repository.
+
+1. If you are pulling container images from a password or token-protected registry, create a credential in automation controller before pulling the image.
+2. From the navigation panel, select menu:Automation Content[Execution Environments].
+3. Select your container repository.
+4. In the Pull this image entry, click btn:[Copy to clipboard].
+5. Paste and run the command in your terminal.
+
+* Run podman images to view images on your local machine.

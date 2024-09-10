@@ -1,0 +1,368 @@
+# System requirements
+
+Use this information when planning your Red Hat Ansible Automation Platform installations and designing automation mesh topologies that fit your use case.
+* You can obtain root access either through the sudo command, or through privilege escalation. For more on privilege escalation see Understanding privilege escalation.
+* You can de-escalate privileges from root to users such as: AWX, PostgreSQL, Event-Driven Ansible, or Pulp.
+* You have configured an NTP client on all nodes. For more information, see Configuring NTP server using Chrony.
+
+# Red Hat Ansible Automation Platform system requirements
+
+Your system must meet the following minimum system requirements to install and run Red Hat Ansible Automation Platform.
+
+
+
+The following are necessary for you to work with project updates and collections:
+
+* Ensure that the network ports and protocols listed in Table 5.3. Automation Hub are available for successful connection and download of collections from automation hub or Ansible Galaxy server.
+* Disable SSL inspection either when using self-signed certificates or for the Red Hat domains.
+
+
+[NOTE]
+----
+The requirements for systems managed by Ansible Automation Platform are the same as for Ansible.
+See Installing Ansible in the Ansible Community Documentation.
+----
+
+* Red Hat Ansible Automation Platform depends on Ansible Playbooks and requires the installation of the latest stable version of ansible-core. You can download ansible-core manually or download it automatically as part of your installation of Red Hat Ansible Automation Platform.
+* For new installations, automation controller installs the latest release package of ansible-core.
+* If performing a bundled Ansible Automation Platform installation, the installation setup.sh script attempts to install ansible-core (and its dependencies) from the bundle for you.
+* If you have installed Ansible manually, the Ansible Automation Platform installation setup.sh script detects that Ansible has been installed and does not attempt to reinstall it.
+
+
+[NOTE]
+----
+You must install Ansible using a package manager such as dnf, and the latest stable version of the package manager must be installed for Red Hat Ansible Automation Platform to work properly.
+Ansible-core version 2.15 is required for versions 2.5 and later.
+----
+
+# Platform gateway system requirements
+
+The platform gateway is the service that handles authentication and authorization for Ansible Automation Platform. It provides a single entry into the platform and serves the platform&#8217;s user interface.
+
+Platform gateway has the following system requirements:
+
+
+
+# Automation controller system requirements
+
+Automation controller is a distributed system, where different software components can be co-located or deployed across multiple compute nodes.
+In the installer, four node types are provided as abstractions to help you design the topology appropriate for your use case: control, hybrid, execution, and hop nodes.
+
+Use the following recommendations for node sizing:
+
+
+[NOTE]
+----
+On control and hybrid nodes, allocate a minimum of 20 GB to /var/lib/awx for execution environment storage.
+----
+
+Execution nodes
+
+Execution nodes run automation. Increase memory and CPU to increase capacity for running more forks.
+
+
+[NOTE]
+----
+* The RAM and CPU resources stated might not be required for packages installed on an execution node but are the minimum recommended to handle the job load for a node to run an average number of jobs simultaneously.
+* Recommended RAM and CPU node sizes are not supplied.
+The required RAM or CPU depends directly on the number of jobs you are running in that environment.
+For further information about required RAM and CPU levels, see Performance tuning for automation controller.
+----
+
+
+
+Control nodes
+
+Control nodes process events and run cluster jobs including project updates and cleanup jobs. Increasing CPU and memory can help with job event processing.
+
+
+
+Hop nodes
+
+Hop nodes serve to route traffic from one part of the automation mesh to another (for example, a hop node could be a bastion host into another network). RAM can affect throughput, CPU activity is low. Network bandwidth and latency are generally a more important factor than either RAM or CPU.
+
+
+
+* Actual RAM requirements vary based on how many hosts automation controller will manage simultaneously (which is controlled by the forks parameter in the job template or the system ansible.cfg file).
+To avoid possible resource conflicts, Ansible recommends 1 GB of memory per 10 forks and 2 GB reservation for automation controller. For more information, see Automation controller capacity determination and job impact. If forks is set to 400, 42 GB of memory is recommended.
+* Automation controller hosts check if umask is set to 0022. If not, the setup fails. Set umask=0022 to avoid this error.
+* A larger number of hosts can be addressed, but if the fork number is less than the total host count, more passes across the hosts are required. You can avoid these RAM limitations by using any of the following approaches:
+* Use rolling updates.
+* Use the provisioning callback system built into automation controller, where each system requesting configuration enters a queue and is processed as quickly as possible.
+* In cases where automation controller is producing or deploying images such as AMIs.
+
+* For more information about obtaining an automation controller subscription, see Importing a subscription.
+* For questions, contact Ansible support through the Red Hat Customer Portal.
+
+# Automation hub system requirements
+
+Automation hub enables you to discover and use new certified automation content from Red Hat Ansible and Certified Partners. On Ansible automation hub, you can discover and manage Ansible Collections, which are supported automation content developed by Red Hat and its partners for use cases such as cloud automation, network automation, and security automation.
+
+Automation hub has the following system requirements:
+
+
+
+
+[NOTE]
+----
+Private automation hub
+If you install private automation hub from an internal address, and have a certificate which only encompasses the external address, this can result in an installation which cannot be used as container registry without certificate issues.
+To avoid this, use the automationhub_main_url inventory variable with a value such as https://pah.example.com linking to the private automation hub node in the installation inventory file.
+This adds the external address to /etc/pulp/settings.py.
+This implies that you only want to use the external address.
+For information about inventory file variables, see Inventory file variables in the Red Hat Ansible Automation Platform Installation Guide.
+----
+
+## High availability automation hub requirements
+
+Before deploying a high availability (HA) automation hub, ensure that you have a shared filesystem installed in your environment and that you have configured your network storage system, if applicable.
+
+### Required shared filesystem
+
+A high availability automation hub requires you to have a shared file system, such as NFS, already installed in your environment. Before you run the Red Hat Ansible Automation Platform installer, verify that you installed the /var/lib/pulp directory across your cluster as part of the shared file system installation.
+The Red Hat Ansible Automation Platform installer returns an error if /var/lib/pulp is not detected in one of your nodes, causing your high availability automation hub setup to fail.
+
+If you receive an error stating /var/lib/pulp is not detected in one of your nodes, ensure /var/lib/pulp is properly mounted in all servers and re-run the installer.
+
+### Installing firewalld for network storage
+
+If you intend to install a HA automation hub using a network storage on the automation hub nodes itself, you must first install and use firewalld to open the necessary ports as required by your shared storage system before running the Ansible Automation Platform installer.
+
+Install and configure firewalld by executing the following commands:
+
+1. Install the firewalld daemon:
+
+```
+$ dnf install firewalld
+```
+
+2. Add your network storage under <service> using the following command:
+
+```
+$ firewall-cmd --permanent --add-service=<service>
+```
+
+
+[NOTE]
+----
+For a list of supported services, use the $ firewall-cmd --get-services command
+----
+3. Reload to apply the configuration:
+
+```
+$ firewall-cmd --reload
+```
+
+
+# Event-Driven Ansible controller system requirements
+
+The Event-Driven Ansible controller is a single-node system capable of handling a variable number of long-running processes (such as rulebook activations) on-demand, depending on the number of CPU cores. Use the following minimum requirements to run, by default, a maximum of 12 simultaneous activations:
+
+
+
+
+[IMPORTANT]
+----
+* If you are running Red Hat Enterprise Linux 8 and want to set your memory limits, you must have cgroup v2 enabled before you install Event-Driven Ansible. For specific instructions, see the Knowledge-Centered Support (KCS) article, Ansible Automation Platform Event-Driven Ansible controller for Red Hat Enterprise Linux 8 requires cgroupv2.
+* When you activate an Event-Driven Ansible rulebook under standard conditions, it uses about 250 MB of memory. However, the actual memory consumption can vary significantly based on the complexity of your rules and the volume and size of the events processed. In scenarios where a large number of events are anticipated or the rulebook complexity is high, conduct a preliminary assessment of resource usage in a staging environment. This ensures that your maximum number of activations is based on the capacity of your resources. See Single automation controller, single automation hub, and single Event-Driven Ansible controller node with external (installer managed) database for an example on setting Event-Driven Ansible controller maximum
+running activations.
+----
+
+# PostgreSQL requirements
+
+Red Hat Ansible Automation Platform uses PostgreSQL 15. PostgreSQL user passwords are hashed with SCRAM-SHA-256 secure hashing algorithm before storing in the database.
+
+To determine if your automation controller instance has access to the database, you can do so with the command, awx-manage check_db command.
+
+
+
+Optionally, you can configure the PostgreSQL database as separate nodes that are not managed by the Red Hat Ansible Automation Platform installer. When the Ansible Automation Platform installer manages the database server, it configures the server with defaults that are generally recommended for most workloads. For more information about the settings you can use to improve database performance, see Database Settings.
+
+For more information about tuning your PostgreSQL server, see the PostgreSQL documentation.
+
+## Setting up an external (customer supported) database
+
+
+[IMPORTANT]
+----
+Red Hat does not support the use of external (customer supported) databases, however they are used by customers.
+The following guidance on inital configuration, from a product installation perspective only, is provided to avoid related support requests.
+----
+
+To create a database, user and password on an external PostgreSQL compliant database for use with automation controller, use the following procedure.
+
+1. Install and then connect to a PostgreSQL compliant database server with superuser privileges.
+
+```
+# psql -h <db.example.com> -U superuser -p 5432 -d postgres <Password for user superuser>:
+```
+
+
+Where:
+
+```
+-h hostname
+--host=hostname
+```
+
+
+Specifies the host name of the machine on which the server is running.
+If the value begins with a slash, it is used as the directory for the Unix-domain socket.
+
+```
+-d dbname
+--dbname=dbname
+```
+
+
+Specifies the name of the database to connect to.
+This is equivalent to specifying dbname as the first non-option argument on the command line.
+The dbname can be a connection string.
+If so, connection string parameters override any conflicting command line options.
+
+```
+-U username
+--username=username
+```
+
+
+Connect to the database as the user username instead of the default. (You must have permission to do so.)
+2. Create the user, database, and password with the createDB or administrator role assigned to the user.
+For further information, see Database Roles.
+3. Add the database credentials and host details to the automation controller inventory file as an external database.
+
+The default values are used in the following example.
+
+```
+[database]
+pg_host='db.example.com'
+pg_port=5432
+pg_database='awx'
+pg_username='awx'
+pg_password='redhat'
+```
+
+4. Run the installer.
+
+If you are using a PostgreSQL database with automation controller, the database is owned by the connecting user and must have a createDB or administrator role assigned to it.
+5. Check that you are able to connect to the created database with the user, password and database name.
+6. Check the permission of the user, the user should have the createDB or administrator role.
+
+
+[NOTE]
+----
+During this procedure, you must check the External Database coverage. For further information, see https://access.redhat.com/articles/4010491
+----
+
+## Enabling the hstore extension for the automation hub PostgreSQL database
+
+Added in Ansible Automation Platform 2.5, the database migration script uses hstore fields to store information, therefore the hstore extension to the automation hub PostgreSQL database must be enabled.
+
+This process is automatic when using the Ansible Automation Platform installer and a managed PostgreSQL server.
+
+If the PostgreSQL database is external, you must enable the hstore extension to the automation hub PostreSQL database manually before automation hub installation.
+
+If the hstore extension is not enabled before automation hub installation, a failure is raised during database migration.
+
+1. Check if the extension is available on the PostgreSQL server (automation hub database).
+
+```
+$ psql -d <automation hub database> -c "SELECT * FROM pg_available_extensions WHERE name='hstore'"
+```
+
+
+Where the default value for <automation hub database> is automationhub.
+
+Example output with hstore available:
+
+```
+name  | default_version | installed_version |comment
+------+-----------------+-------------------+---------------------------------------------------
+ hstore | 1.7           |                   | data type for storing sets of (key, value) pairs
+(1 row)
+```
+
+
+Example output with hstore not available:
+
+```
+ name | default_version | installed_version | comment
+------+-----------------+-------------------+---------
+(0 rows)
+```
+
+2. On a RHEL based server, the hstore extension is included in the postgresql-contrib RPM package, which is not installed automatically when installing the PostgreSQL server RPM package.
+
+To install the RPM package, use the following command:
+
+```
+dnf install postgresql-contrib
+```
+
+3. Create the hstore PostgreSQL extension on the automation hub database with the following command:
+
+```
+$ psql -d <automation hub database> -c "CREATE EXTENSION hstore;"
+```
+
+
+The output of which is:
+
+```
+CREATE EXTENSION
+```
+
+4. In the following output, the installed_version field contains the hstore extension used, indicating that hstore is enabled.
+
+```
+name | default_version | installed_version | comment
+-----+-----------------+-------------------+------------------------------------------------------
+hstore  |     1.7      |       1.7         | data type for storing sets of (key, value) pairs
+(1 row)
+```
+
+
+## Benchmarking storage performance for the Ansible Automation Platform PostgreSQL database
+
+Check whether the minimum Ansible Automation Platform PostgreSQL database requirements are met by using the Flexible I/O Tester (FIO) tool. FIO is a tool used to benchmark read and write IOPS performance of the storage system.
+
+* You have installed the Flexible I/O Tester (fio) storage performance benchmarking tool.
+
+To install fio, run the following command as the root user:
+
+# yum -y install fio
+* You have adequate disk space to store the fio test data log files.
+
+The examples shown in the procedure require at least 60GB disk space in the /tmp directory:
+* numjobs sets the number of jobs run by the command.
+* size=10G sets the file size generated by each job.
+* You have adjusted the value of the size parameter. Adjusting this value reduces the amount of test data.
+
+1. Run a random write test:
+
+$ fio --name=write_iops --directory=/tmp --numjobs=3 --size=10G \
+--time_based --runtime=60s --ramp_time=2s --ioengine=libaio --direct=1 \
+--verify=0 --bs=4K --iodepth=64 --rw=randwrite \
+--group_reporting=1 > /tmp/fio_benchmark_write_iops.log \
+2>> /tmp/fio_write_iops_error.log
+2. Run a random read test:
+
+$ fio --name=read_iops --directory=/tmp \
+--numjobs=3 --size=10G --time_based --runtime=60s --ramp_time=2s \
+--ioengine=libaio --direct=1 --verify=0 --bs=4K --iodepth=64 --rw=randread \
+--group_reporting=1 > /tmp/fio_benchmark_read_iops.log \
+2>> /tmp/fio_read_iops_error.log
+3. Review the results:
+
+In the log files written by the benchmark commands, search for the line beginning with iops.
+This line shows the minimum, maximum, and average values for the test.
+
+The following example shows the line in the log file for the random read test:
+
+$ cat /tmp/fio_benchmark_read_iops.log
+read_iops: (g=0): rw=randread, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+[…]
+   iops        : min=50879, max=61603, avg=56221.33, stdev=679.97, samples=360
+[…]
+
+You must review, monitor, and revisit the log files according to your own business requirements, application workloads, and new demands.

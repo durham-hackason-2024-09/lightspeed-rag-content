@@ -1,0 +1,36 @@
+# User preferences
+
+You can use the User preferences page to customize your platform experience. Use this menu to control theming, layout options and formatting.
+
+
+[NOTE]
+----
+User preferences are stored locally in your browser. This means that they are unique to you and your machine.
+----
+
+1. From the navigation panel, select menu:Settings[User Preferences].
+![User preferences options]
+2. The User preferences page is displayed. Set the configurable options from the fields provided. Click the tooltip icon next to the field that you need additional information about.
+3. You can configure the following options:
+* Refresh interval: Select the refresh interval for the page.
+
+This refreshes the data on the page at the selected interval.
+
+The refresh happens in the background and does not reload the page.
+* Color Theme: Select from:
+* Dark theme
+* Light theme
+* System default
+* Table Layout: Select from:
+* Comfortable
+* Compact
+* Form Columns: Select from:
+* Multiple columns of inputs
+* Single column of inputs
+* Form Labels: Select from:
+* Labels above inputs
+* Labels beside inputs
+* Date Format Select from
+* Shows dates relative to the current time
+* Shows dates as date and time
+* Preferred Date Format: Sets the default format for when editing date fields.

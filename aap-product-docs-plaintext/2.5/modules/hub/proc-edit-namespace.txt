@@ -1,0 +1,14 @@
+# Adding additional information and resources to a namespace
+
+You can add information and provide resources for your users to accompany collections included in the namespace. Add a logo and a description, and link users to your GitHub repository, issue tracker, or other online assets. You can also enter markdown text in the Edit resources tab to include more information. This is helpful to users who use your collection in their automation tasks.
+
+* You have Change Namespaces permissions.
+
+1. Log in to your private automation hub.
+2. From the navigation panel, select menu:Automation Content[Namespaces].
+3. Click the btn:[More Actions] icon &#8942; and select Edit namespace.
+4. In the Edit details tab, enter information in the fields.
+5. Click the Edit resources tab to enter markdown in the text field.
+6. Click btn:[Save].
+
+Your content developers can now upload collections to your new namespace, or allow users in groups assigned as owners to upload collections.
