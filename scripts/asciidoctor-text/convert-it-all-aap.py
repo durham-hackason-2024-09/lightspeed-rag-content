@@ -4,6 +4,7 @@
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 
@@ -32,12 +33,31 @@ if __name__ == "__main__":
 
     args = parser.parse_args(sys.argv[1:])
 
+    attribute_map = {}
     attribute_list: list = []   
     if args.attributes is not None:
-        with open(args.attributes, "r") as fin:
-            attributes = yaml.safe_load(fin)
-        for key, value in attributes.items():
-            attribute_list = [*attribute_list, "-a", key + "=%s" % value]
+        pattern = re.compile(r'^:(\w+):\s+(.+)\s*$')
+        for line in open(args.attributes, "r"):
+            line = line.strip()
+            if len(line) == 0 or line.startswith('//'):
+                continue
+            m = pattern.match(line)
+            if m:
+                attribute_map[m.group(1)] = m.group(2)
+        
+        attribute_map_copy = attribute_map.copy()
+        pattern2 = re.compile(r'^.*{(\w+)}.*$')
+        for k,v in attribute_map.items():
+            m = pattern2.match(v)
+            if m:
+                key = m.group(1)
+                if key in attribute_map:
+                    v = v.replace("{" + key + "}", attribute_map[key])
+            attribute_map_copy[k] = v
+
+        for k,v in attribute_map_copy.items():
+            attribute_list = [*attribute_list, "-a", k + "=%s" % v]
+        print(attribute_list)
 
     output_dir = os.path.normpath(args.output_dir)
     os.makedirs(output_dir, exist_ok=True)
