@@ -17,6 +17,7 @@ from llama_index.core.storage.storage_context import StorageContext
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.vector_stores.faiss import FaissVectorStore
 
+AAP_DOCS_ROOT_URL = "https://github.com/ansible/aap-docs/blob/"
 AAP_DOCS_VERSION = "2.5"
 UNREACHABLE_DOCS: int = 0
 
@@ -39,6 +40,40 @@ def get_file_title(file_path: str) -> str:
     except Exception:  # noqa: S110
         pass
     return title
+
+
+def file_metadata_func(file_path: str, docs_url_func: Callable[[str], str]) -> Dict:
+    """Populate the docs_url and title metadata elements with docs URL and the page's title.
+
+    Args:
+        file_path: str: file path in str
+        docs_url_func: Callable[[str], str]: lambda for the docs_url
+    """
+    docs_url = docs_url_func(file_path)
+    title = get_file_title(file_path)
+    msg = f"file_path: {file_path}, title: {title}, docs_url: {docs_url}"
+    if not ping_url(docs_url):
+        global UNREACHABLE_DOCS
+        UNREACHABLE_DOCS += 1
+        msg += ", UNREACHABLE"
+    print(msg)
+    return {"docs_url": docs_url, "title": title}
+
+
+def aap_file_metadata_func(file_path: str) -> Dict:
+    """Populate metadata for an AAP docs page.
+
+    Args:
+        file_path: str: file path in str
+    """
+    docs_url = lambda file_path: (  # noqa: E731
+        AAP_DOCS_ROOT_URL
+        + AAP_DOCS_VERSION
+        + "/downstream"
+        + file_path.removeprefix(EMBEDDINGS_ROOT_DIR).removesuffix("txt")
+        + "adoc"
+    )
+    return file_metadata_func(file_path, docs_url)
 
 
 def got_whitespace(text: str) -> bool:
@@ -110,7 +145,7 @@ if __name__ == "__main__":
 
     # Load documents
     documents = SimpleDirectoryReader(
-        args.folder, recursive=True
+        args.folder, recursive=True, file_metadata=aap_file_metadata_func
     ).load_data()
 
     # Split based on header/section
